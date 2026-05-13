@@ -3,918 +3,765 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Catalogo 3roC</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
+<title>MotoVerse — Catálogo 3roC</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+/* ══════════════════════════════════════
+   BASE
+══════════════════════════════════════ */
+*{ margin:0; padding:0; box-sizing:border-box; }
 
 :root{
---bg:#080808;
---card:#131313;
---border:#262626;
---muted:#8b8b8b;
---accent:#ff5b2e;
+  --bg:#070707;
+  --card:#111;
+  --card2:#161616;
+  --border:#222;
+  --muted:#777;
+  --muted2:#555;
+  --accent:#ff4b1f;
+  --accent2:#ff9068;
+  --white:#f0ede8;
 }
 
-body{
-font-family:'Inter',sans-serif;
-background:var(--bg);
-color:white;
-overflow:hidden;
-height:100vh;
+html,body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--white);
+  overflow:hidden;
+  height:100vh;
+  width:100vw;
 }
 
-/* =========================
-FLOATING BUTTONS
-========================= */
-
-.top-ui{
-position:fixed;
-top:18px;
-left:50%;
-transform:translateX(-50%);
-display:flex;
-gap:12px;
-z-index:1000;
+/* ══════════════════════════════════════
+   NAV
+══════════════════════════════════════ */
+.nav{
+  position:fixed; top:0; left:0; right:0;
+  height:62px;
+  display:flex; align-items:center; justify-content:center;
+  gap:6px;
+  z-index:2000;
+  background:rgba(7,7,7,.72);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,.04);
 }
 
-.top-btn{
-background:rgba(18,18,18,.78);
-border:1px solid rgba(255,255,255,.06);
-color:white;
-padding:13px 20px;
-border-radius:999px;
-cursor:pointer;
-font-size:.85rem;
-backdrop-filter:blur(18px);
-
-transition:
-transform .8s cubic-bezier(.19,1,.22,1),
-border-radius .7s cubic-bezier(.34,1.56,.64,1),
-background .7s cubic-bezier(.19,1,.22,1);
+.nav-btn{
+  background:transparent;
+  border:1px solid rgba(255,255,255,.06);
+  color:var(--muted);
+  padding:8px 14px;
+  border-radius:999px;
+  cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  font-size:.78rem;
+  letter-spacing:.5px;
+  transition: color .3s, border-color .3s, background .3s,
+              transform .7s cubic-bezier(.19,1,.22,1),
+              border-radius .7s cubic-bezier(.34,1.56,.64,1);
 }
-
-.top-btn:nth-child(1):hover{
-transform:translateY(-6px) rotate(-3deg) scale(1.05);
-border-radius:24px;
-background:#222;
+.nav-btn:hover{
+  color:var(--white);
+  border-color:rgba(255,255,255,.16);
+  background:rgba(255,255,255,.04);
 }
-
-.top-btn:nth-child(2):hover{
-transform:translateY(-8px) scale(1.07);
-border-radius:40px;
-background:#2a2a2a;
+.nav-btn.active-nav{
+  color:var(--accent);
+  border-color:var(--accent);
+  background:rgba(255,75,31,.08);
 }
+.nav-btn:nth-child(1):hover{ transform:translateY(-5px) rotate(-2deg); border-radius:20px; }
+.nav-btn:nth-child(2):hover{ transform:translateY(-6px); border-radius:30px; }
+.nav-btn:nth-child(3):hover{ transform:translateY(-5px) rotate(1deg); border-radius:14px; }
+.nav-btn:nth-child(4):hover{ transform:translateY(-7px) scale(1.04); border-radius:40px; }
+.nav-btn:nth-child(5):hover{ transform:translateY(-5px) rotate(-1deg); border-radius:22px; }
+.nav-btn:nth-child(6):hover{ transform:translateY(-6px) rotate(2deg); border-radius:18px; }
+.nav-btn:nth-child(7):hover{ transform:translateY(-5px) scale(1.03); border-radius:34px; }
 
-.top-btn:nth-child(3):hover{
-transform:translateY(-5px) rotate(3deg) scale(1.04);
-border-radius:16px;
-background:#242424;
-}
-
-/* =========================
-LOGOS
-========================= */
-
+/* ══════════════════════════════════════
+   LOGOS
+══════════════════════════════════════ */
 .logo-text{
-position:fixed;
-top:8px;
-left:18px;
-width:270px;
-z-index:999;
-pointer-events:none;
+  position:fixed; top:14px; left:18px;
+  width:230px; z-index:3000; pointer-events:none;
 }
-
 .logo-icon{
-position:fixed;
-bottom:16px;
-right:18px;
-width:82px;
-opacity:.9;
-z-index:999;
-pointer-events:none;
+  position:fixed; bottom:16px; right:18px;
+  width:70px; opacity:.7; z-index:3000; pointer-events:none;
 }
 
-/* =========================
-PAGES
-========================= */
-
+/* ══════════════════════════════════════
+   PAGES
+══════════════════════════════════════ */
 .page{
-position:absolute;
-inset:0;
-padding:100px 24px 40px;
+  position:absolute; inset:0;
+  padding:72px 28px 28px;
+  display:flex; justify-content:center; align-items:center;
+  pointer-events:none;
+}
+.page.active{ pointer-events:auto; }
 
-display:flex;
-justify-content:center;
-align-items:center;
+/* scrollable inner */
+.scroll-inner{
+  width:100%; height:100%;
+  overflow-y:auto; overflow-x:hidden;
+  padding-bottom:20px;
+}
+.scroll-inner::-webkit-scrollbar{ width:4px; }
+.scroll-inner::-webkit-scrollbar-thumb{ background:#222; border-radius:99px; }
 
-opacity:0;
-pointer-events:none;
+/* ══════════════════════════════════════
+   ① PORTADA
+══════════════════════════════════════ */
+.portada-wrap{
+  width:min(1400px,100%);
+  height:min(780px,100%);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:32px;
+  align-items:center;
+}
+.portada-left > *{ opacity:0; }
 
-transition:
-opacity .8s cubic-bezier(.16,1,.3,1);
+.portada-tag{
+  font-size:.72rem; letter-spacing:5px; color:var(--accent);
+  text-transform:uppercase; margin-bottom:14px;
+}
+.portada-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3.5rem,8vw,7rem);
+  line-height:.88;
+  margin-bottom:18px;
+  color:var(--white);
+}
+.portada-title em{
+  font-style:normal;
+  color:var(--accent);
+}
+.portada-subtitle{
+  font-size:.95rem;
+  line-height:1.8;
+  color:var(--muted);
+  max-width:480px;
+  margin-bottom:32px;
+}
+.portada-badges{
+  display:flex; gap:10px; flex-wrap:wrap; margin-bottom:34px;
+}
+.badge{
+  background:rgba(255,75,31,.1);
+  border:1px solid rgba(255,75,31,.22);
+  color:var(--accent2);
+  padding:7px 14px;
+  border-radius:999px;
+  font-size:.78rem;
+  letter-spacing:.5px;
+}
+.portada-btns{ display:flex; gap:12px; flex-wrap:wrap; }
+.btn-primary{
+  background:var(--accent);
+  border:none; color:white;
+  padding:14px 26px; border-radius:16px;
+  cursor:pointer; font-family:'DM Sans',sans-serif; font-size:.88rem; font-weight:600;
+  transition: transform .8s cubic-bezier(.19,1,.22,1), border-radius .8s;
+}
+.btn-primary:hover{ transform:translateY(-8px) rotate(-2deg) scale(1.06); border-radius:36px; }
+.btn-ghost{
+  background:#181818;
+  border:1px solid var(--border);
+  color:var(--white);
+  padding:14px 26px; border-radius:16px;
+  cursor:pointer; font-family:'DM Sans',sans-serif; font-size:.88rem;
+  transition: transform .8s cubic-bezier(.19,1,.22,1), border-radius .8s, background .4s;
+}
+.btn-ghost:hover{ transform:translateY(-8px) rotate(2deg) scale(1.04); border-radius:30px; background:#222; }
+
+.portada-img{
+  height:min(680px,100%);
+  border-radius:36px;
+  overflow:hidden;
+  background:#0e0e0e;
+  position:relative;
+  opacity:0;
+}
+.portada-img img{
+  width:100%; height:100%; object-fit:cover;
+}
+.portada-img-overlay{
+  position:absolute; inset:0;
+  background:linear-gradient(160deg, transparent 50%, rgba(7,7,7,.6) 100%);
+}
+.portada-img-label{
+  position:absolute; bottom:22px; left:22px;
+  background:rgba(0,0,0,.55);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;
+  padding:12px 18px;
+  font-size:.8rem;
+  color:var(--muted);
+}
+.portada-img-label strong{ display:block; font-size:1rem; color:var(--white); margin-bottom:2px; }
+
+/* ══════════════════════════════════════
+   ② PRESENTACIÓN
+══════════════════════════════════════ */
+.pres-wrap{
+  width:min(1100px,100%);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:48px;
+  align-items:start;
+}
+.pres-left > *{ opacity:0; }
+.pres-right > *{ opacity:0; }
+
+.section-label{
+  font-size:.7rem; letter-spacing:5px; color:var(--accent);
+  text-transform:uppercase; margin-bottom:14px;
+}
+.section-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.4rem,5vw,4rem);
+  line-height:.9;
+  margin-bottom:20px;
+}
+.section-body{
+  font-size:.9rem; line-height:1.9;
+  color:var(--muted);
+  margin-bottom:18px;
 }
 
-.page.active{
-opacity:1;
-pointer-events:auto;
+.pres-stats{
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:14px; margin-top:10px;
+}
+.stat-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:18px 20px;
+  opacity:0;
+  transition: transform .8s cubic-bezier(.19,1,.22,1), border-radius .8s;
+}
+.stat-card:hover{ transform:translateY(-6px) scale(1.03); border-radius:30px; }
+.stat-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2.4rem;
+  color:var(--accent);
+  line-height:1;
+  margin-bottom:4px;
+}
+.stat-label{
+  font-size:.78rem; color:var(--muted); letter-spacing:.5px;
 }
 
-/* =========================
-HOME
-========================= */
+.pres-pillars{ display:flex; flex-direction:column; gap:14px; }
+.pillar{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:18px 22px;
+  display:flex; gap:16px; align-items:flex-start;
+  opacity:0;
+  transition: transform .8s cubic-bezier(.19,1,.22,1), border-radius .8s;
+}
+.pillar:hover{ transform:translateX(8px); border-radius:28px; }
+.pillar-icon{
+  font-size:1.4rem;
+  background:rgba(255,75,31,.1);
+  border-radius:12px;
+  width:40px; height:40px;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+.pillar-title{ font-weight:600; font-size:.9rem; margin-bottom:4px; }
+.pillar-text{ font-size:.82rem; color:var(--muted); line-height:1.6; }
 
-.home-wrap{
-width:min(1380px,100%);
-height:min(760px,100%);
+/* ══════════════════════════════════════
+   ③ ÍNDICE
+══════════════════════════════════════ */
+.indice-wrap{
+  width:min(980px,100%);
+}
+.indice-header{ margin-bottom:32px; opacity:0; }
+.indice-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:14px;
+}
+.indice-item{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:18px 22px;
+  cursor:pointer;
+  display:flex; align-items:center; justify-content:space-between;
+  opacity:0;
+  transition: transform .8s cubic-bezier(.19,1,.22,1),
+              border-radius .8s,
+              border-color .3s,
+              background .3s;
+}
+.indice-item:hover{
+  transform:translateX(10px) scale(1.02);
+  border-radius:30px;
+  border-color:rgba(255,75,31,.3);
+  background:rgba(255,75,31,.05);
+}
+.indice-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2rem;
+  color:rgba(255,75,31,.25);
+  margin-right:16px;
+  line-height:1;
+}
+.indice-info{ flex:1; }
+.indice-name{ font-weight:600; font-size:.95rem; margin-bottom:3px; }
+.indice-sub{ font-size:.78rem; color:var(--muted); }
+.indice-arrow{
+  color:var(--muted2);
+  font-size:1.1rem;
+  transition: transform .4s, color .3s;
+}
+.indice-item:hover .indice-arrow{ transform:translateX(6px); color:var(--accent); }
 
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:28px;
-align-items:center;
+/* ══════════════════════════════════════
+   ④ QUÉ OFRECEMOS
+══════════════════════════════════════ */
+.oferta-wrap{
+  width:min(1100px,100%);
 }
+.oferta-header{ margin-bottom:28px; opacity:0; }
 
-.home-left>*{
-opacity:0;
-animation-fill-mode:forwards;
+.oferta-hero{
+  background:linear-gradient(135deg, rgba(255,75,31,.12) 0%, rgba(255,75,31,.02) 100%);
+  border:1px solid rgba(255,75,31,.2);
+  border-radius:28px;
+  padding:32px 36px;
+  margin-bottom:24px;
+  display:flex; gap:32px; align-items:center;
+  opacity:0;
 }
+.oferta-hero-text h3{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2rem; margin-bottom:10px; color:var(--white);
+}
+.oferta-hero-text p{ font-size:.88rem; line-height:1.8; color:var(--muted); }
+.oferta-hero-badge{
+  flex-shrink:0;
+  background:var(--accent);
+  border-radius:20px;
+  padding:20px 26px;
+  text-align:center;
+}
+.oferta-hero-badge .big{ font-family:'Bebas Neue',sans-serif; font-size:2.6rem; line-height:1; display:block; }
+.oferta-hero-badge .small{ font-size:.72rem; letter-spacing:2px; }
 
-.page.active .tag{
-animation:tagAnim .9s cubic-bezier(.22,1,.36,1) .1s forwards;
+.oferta-cats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
 }
+.oferta-cat{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:22px 18px;
+  text-align:center;
+  cursor:pointer;
+  opacity:0;
+  transition: transform .9s cubic-bezier(.19,1,.22,1), border-radius .9s, border-color .3s;
+}
+.oferta-cat:nth-child(1):hover{ transform:translateY(-10px) rotate(-2deg); border-radius:40px; border-color:rgba(255,75,31,.3); }
+.oferta-cat:nth-child(2):hover{ transform:translateY(-12px) scale(1.04); border-radius:16px; border-color:rgba(255,75,31,.3); }
+.oferta-cat:nth-child(3):hover{ transform:translateY(-10px) rotate(2deg); border-radius:50px; border-color:rgba(255,75,31,.3); }
+.oferta-cat:nth-child(4):hover{ transform:translateY(-8px) skew(-2deg); border-radius:30px; border-color:rgba(255,75,31,.3); }
+.oferta-cat-icon{ font-size:2rem; margin-bottom:12px; display:block; }
+.oferta-cat-name{ font-weight:700; font-size:1rem; margin-bottom:6px; }
+.oferta-cat-count{ font-size:.78rem; color:var(--muted); margin-bottom:14px; }
+.oferta-cat-btn{
+  background:rgba(255,75,31,.1);
+  border:1px solid rgba(255,75,31,.2);
+  color:var(--accent);
+  border-radius:999px;
+  padding:6px 14px;
+  font-size:.75rem;
+  cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  transition: background .3s, transform .4s;
+}
+.oferta-cat:hover .oferta-cat-btn{ background:rgba(255,75,31,.2); transform:scale(1.05); }
 
-.page.active .title{
-animation:titleAnim 1.1s cubic-bezier(.16,1,.3,1) .18s forwards;
-}
-
-.page.active .desc{
-animation:descAnim 1s cubic-bezier(.16,1,.3,1) .32s forwards;
-}
-
-.page.active .home-buttons{
-animation:buttonsAnim 1.1s cubic-bezier(.19,1,.22,1) .42s forwards;
-opacity:0;
-}
-
-@keyframes tagAnim{
-0%{
-opacity:0;
-transform:translateX(-80px) rotate(-8deg);
-}
-100%{
-opacity:1;
-transform:none;
-}
-}
-
-@keyframes titleAnim{
-0%{
-opacity:0;
-transform:
-translateY(90px)
-scale(.8)
-rotate(-4deg);
-}
-100%{
-opacity:1;
-transform:none;
-}
-}
-
-@keyframes descAnim{
-0%{
-opacity:0;
-transform:
-translateX(120px)
-rotate(5deg);
-}
-100%{
-opacity:1;
-transform:none;
-}
-}
-
-@keyframes buttonsAnim{
-0%{
-opacity:0;
-transform:
-translateY(60px)
-scale(.7);
-}
-100%{
-opacity:1;
-transform:none;
-}
-}
-
-.tag{
-font-size:.82rem;
-letter-spacing:4px;
-color:var(--accent);
-margin-bottom:18px;
-}
-
-.title{
-font-size:clamp(3rem,7vw,6rem);
-line-height:.9;
-font-weight:800;
-margin-bottom:22px;
-}
-
-.title span{
-color:var(--accent);
-}
-
-.desc{
-max-width:520px;
-line-height:1.9;
-color:var(--muted);
-margin-bottom:30px;
-}
-
-.home-buttons{
-display:flex;
-gap:14px;
-flex-wrap:wrap;
-}
-
-.main-btn,
-.ghost-btn{
-border:none;
-padding:15px 24px;
-border-radius:18px;
-cursor:pointer;
-font-size:.9rem;
-color:white;
-
-transition:
-transform .8s cubic-bezier(.19,1,.22,1),
-border-radius .8s cubic-bezier(.34,1.56,.64,1),
-background .8s cubic-bezier(.19,1,.22,1);
-}
-
-.main-btn{
-background:var(--accent);
-}
-
-.main-btn:hover{
-transform:
-translateY(-8px)
-rotate(-2deg)
-scale(1.06);
-
-border-radius:36px;
-}
-
-.ghost-btn{
-background:#1c1c1c;
-}
-
-.ghost-btn:hover{
-transform:
-translateY(-8px)
-rotate(2deg)
-scale(1.04);
-
-border-radius:30px;
-background:#272727;
-}
-
-.home-image{
-height:100%;
-overflow:hidden;
-border-radius:38px;
-background:#101010;
-position:relative;
-
-opacity:0;
-animation:homeImageAnim 1.3s cubic-bezier(.16,1,.3,1) .2s forwards;
-}
-
-@keyframes homeImageAnim{
-0%{
-opacity:0;
-transform:
-translateX(140px)
-rotate(6deg)
-scale(.7);
-
-border-radius:100px;
-}
-100%{
-opacity:1;
-transform:none;
-border-radius:38px;
-}
-}
-
-.home-image img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-/* =========================
-CATEGORIES
-========================= */
-
+/* ══════════════════════════════════════
+   ⑤ CATEGORÍAS
+══════════════════════════════════════ */
 .categories{
-width:min(1250px,100%);
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:26px;
-
-padding-top:10px;
-padding-bottom:20px;
-
-overflow:visible;
+  width:min(1250px,100%);
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:24px;
+  overflow:visible;
 }
-
 .category-card{
-background:var(--card);
-border:1px solid var(--border);
-border-radius:30px;
-padding:22px;
-cursor:pointer;
-position:relative;
-min-height:270px;
-
-overflow:visible;
-
-opacity:0;
-animation-fill-mode:forwards;
-
-transition:
-transform .9s cubic-bezier(.19,1,.22,1),
-border-radius .9s cubic-bezier(.34,1.56,.64,1);
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:28px;
+  padding:20px;
+  cursor:pointer;
+  position:relative;
+  min-height:265px;
+  overflow:visible;
+  opacity:0;
+  transition: transform .9s cubic-bezier(.19,1,.22,1), border-radius .9s;
 }
-
-.page.active .category-card:nth-child(1){
-animation:cat1 1s cubic-bezier(.16,1,.3,1) forwards;
-}
-
-.page.active .category-card:nth-child(2){
-animation:cat2 1.1s cubic-bezier(.16,1,.3,1) .08s forwards;
-}
-
-.page.active .category-card:nth-child(3){
-animation:cat3 1s cubic-bezier(.16,1,.3,1) .15s forwards;
-}
-
-.page.active .category-card:nth-child(4){
-animation:cat4 1.1s cubic-bezier(.16,1,.3,1) .22s forwards;
-}
-
-@keyframes cat1{
-0%{
-opacity:0;
-transform:translateX(-140px) rotate(-8deg) scale(.7);
-}
-100%{
-opacity:1;
-transform:none;
-}
-}
-
-@keyframes cat2{
-0%{
-opacity:0;
-transform:translateY(140px) scale(.6);
-}
-100%{
-opacity:1;
-transform:none;
-}
-}
-
-@keyframes cat3{
-0%{
-opacity:0;
-transform:translateY(-120px) rotate(8deg) scale(.75);
-}
-100%{
-opacity:1;
-transform:none;
-}
-}
-
-@keyframes cat4{
-0%{
-opacity:0;
-transform:translateX(140px) rotate(8deg) scale(.7);
-}
-100%{
-opacity:1;
-transform:none;
-}
-}
-
-.category-card:nth-child(1):hover{
-transform:
-translateY(-10px)
-rotate(-2deg)
-scale(1.03);
-
-border-radius:52px;
-}
-
-.category-card:nth-child(2):hover{
-transform:
-translateY(-14px)
-scale(1.05);
-
-border-radius:18px;
-}
-
-.category-card:nth-child(3):hover{
-transform:
-translateY(-12px)
-rotate(2deg)
-scale(1.04);
-
-border-radius:60px;
-}
-
-.category-card:nth-child(4):hover{
-transform:
-translateY(-10px)
-skew(-2deg)
-scale(1.03);
-
-border-radius:40px;
-}
+.category-card:nth-child(1):hover{ transform:translateY(-10px) rotate(-2deg) scale(1.03); border-radius:50px; }
+.category-card:nth-child(2):hover{ transform:translateY(-13px) scale(1.05); border-radius:16px; }
+.category-card:nth-child(3):hover{ transform:translateY(-11px) rotate(2deg) scale(1.04); border-radius:56px; }
+.category-card:nth-child(4):hover{ transform:translateY(-9px) skew(-2deg) scale(1.03); border-radius:38px; }
 
 .category-preview{
-height:140px;
-background:#1b1b1b;
-border-radius:22px;
-overflow:hidden;
-display:flex;
-align-items:center;
-justify-content:center;
-margin-bottom:18px;
-position:relative;
-
-transition:
-transform 1s cubic-bezier(.19,1,.22,1),
-border-radius 1s cubic-bezier(.34,1.56,.64,1);
+  height:135px; background:#1a1a1a; border-radius:20px;
+  overflow:hidden; display:flex; align-items:center; justify-content:center;
+  margin-bottom:16px; position:relative;
+  transition: transform 1s cubic-bezier(.19,1,.22,1), border-radius 1s;
 }
-
-.category-card:hover .category-preview{
-transform:scale(1.04);
-border-radius:42px;
-}
-
-/* =========================
-SLIDER
-========================= */
-
-.sport-slider{
-position:absolute;
-inset:0;
-}
-
+.category-card:hover .category-preview{ transform:scale(1.04); border-radius:38px; }
+.sport-slider{ position:absolute; inset:0; }
 .sport-slider img{
-position:absolute;
-width:100%;
-height:100%;
-object-fit:cover;
-
-opacity:0;
-animation:slideShow 16s infinite;
+  position:absolute; width:100%; height:100%; object-fit:cover;
+  opacity:0; animation:slideShow 16s infinite;
 }
-
-.sport-slider img:nth-child(1){
-animation-delay:0s;
-}
-
-.sport-slider img:nth-child(2){
-animation-delay:4s;
-}
-
-.sport-slider img:nth-child(3){
-animation-delay:8s;
-}
-
-.sport-slider img:nth-child(4){
-animation-delay:12s;
-}
-
+.sport-slider img:nth-child(1){ animation-delay:0s; }
+.sport-slider img:nth-child(2){ animation-delay:4s; }
+.sport-slider img:nth-child(3){ animation-delay:8s; }
+.sport-slider img:nth-child(4){ animation-delay:12s; }
 @keyframes slideShow{
-
-0%{
-opacity:0;
-transform:
-scale(1.12)
-translateX(60px)
-rotate(2deg);
+  0%  { opacity:0; transform:scale(1.12) translateX(60px) rotate(2deg); }
+  8%  { opacity:1; }
+  24% { opacity:1; transform:scale(1) translateX(0) rotate(0); }
+  32% { opacity:0; transform:scale(.92) translateX(-60px) rotate(-2deg); }
+  100%{ opacity:0; }
 }
+.category-name{ font-family:'Bebas Neue',sans-serif; font-size:1.7rem; margin-bottom:8px; letter-spacing:1px; }
+.category-desc{ color:var(--muted); line-height:1.7; font-size:.85rem; }
 
-8%{
-opacity:1;
-}
-
-24%{
-opacity:1;
-transform:
-scale(1)
-translateX(0)
-rotate(0);
-}
-
-32%{
-opacity:0;
-transform:
-scale(.92)
-translateX(-60px)
-rotate(-2deg);
-}
-
-100%{
-opacity:0;
-}
-
-}
-
-.category-name{
-font-size:1.6rem;
-font-weight:700;
-margin-bottom:10px;
-}
-
-.category-desc{
-color:var(--muted);
-line-height:1.8;
-font-size:.92rem;
-}
-
-/* =========================
-MOTOS
-========================= */
-
-.moto-wrapper{
-width:min(1380px,100%);
-height:100%;
-display:flex;
-flex-direction:column;
-
-overflow:visible;
-}
-
+/* ══════════════════════════════════════
+   ⑥ MOTO PAGES
+══════════════════════════════════════ */
+.moto-wrapper{ width:min(1380px,100%); height:100%; display:flex; flex-direction:column; overflow:visible; }
 .back-category{
-margin-bottom:20px;
-width:max-content;
-padding:12px 18px;
-border:none;
-border-radius:18px;
-background:#1d1d1d;
-color:white;
-cursor:pointer;
-
-transition:
-transform .8s cubic-bezier(.19,1,.22,1),
-border-radius .8s cubic-bezier(.34,1.56,.64,1);
+  margin-bottom:18px; width:max-content; padding:10px 18px;
+  border:none; border-radius:14px; background:#1a1a1a; color:var(--muted); cursor:pointer;
+  font-family:'DM Sans',sans-serif; font-size:.82rem;
+  opacity:0;
+  transition: transform .8s cubic-bezier(.19,1,.22,1), border-radius .8s, color .3s;
 }
-
-.back-category:hover{
-transform:translateY(-6px) rotate(-2deg) scale(1.04);
-border-radius:34px;
-}
-
+.back-category:hover{ transform:translateY(-5px) rotate(-2deg) scale(1.04); border-radius:30px; color:var(--white); }
 .moto-page{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:28px;
-
-overflow-y:auto;
-overflow-x:visible;
-
-padding:
-14px
-10px
-40px
-10px;
-
-margin-top:4px;
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+  gap:24px;
+  overflow-y:auto; overflow-x:visible;
+  padding:10px 8px 40px 8px; margin-top:4px;
 }
-
-.moto-page::-webkit-scrollbar{
-width:6px;
-}
-
-.moto-page::-webkit-scrollbar-thumb{
-background:#2b2b2b;
-border-radius:999px;
-}
+.moto-page::-webkit-scrollbar{ width:4px; }
+.moto-page::-webkit-scrollbar-thumb{ background:#222; border-radius:99px; }
 
 .moto-card{
-background:var(--card);
-border:1px solid var(--border);
-border-radius:30px;
-overflow:hidden;
-cursor:pointer;
-
-opacity:0;
-animation-fill-mode:forwards;
-
-transition:
-transform .9s cubic-bezier(.19,1,.22,1),
-border-radius .9s cubic-bezier(.34,1.56,.64,1);
-
-will-change:transform;
+  background:var(--card); border:1px solid var(--border);
+  border-radius:28px; overflow:hidden; cursor:pointer; opacity:0;
+  transition: transform .9s cubic-bezier(.19,1,.22,1), border-radius .9s;
 }
-
-.page.active .moto-card:nth-child(1){
-animation:moto1 1s cubic-bezier(.16,1,.3,1) forwards;
-}
-
-.page.active .moto-card:nth-child(2){
-animation:moto2 1.1s cubic-bezier(.16,1,.3,1) .08s forwards;
-}
-
-.page.active .moto-card:nth-child(3){
-animation:moto3 1.1s cubic-bezier(.16,1,.3,1) .16s forwards;
-}
-
-.page.active .moto-card:nth-child(4){
-animation:moto4 1.1s cubic-bezier(.16,1,.3,1) .24s forwards;
-}
-
-@keyframes moto1{
-0%{
-opacity:0;
-transform:translateX(-120px) rotate(-6deg) scale(.7);
-}
-100%{
-opacity:1;
-transform:none;
-}
-}
-
-@keyframes moto2{
-0%{
-opacity:0;
-transform:translateY(120px) scale(.7);
-}
-100%{
-opacity:1;
-transform:none;
-}
-}
-
-@keyframes moto3{
-0%{
-opacity:0;
-transform:translateY(-120px) rotate(5deg) scale(.8);
-}
-100%{
-opacity:1;
-transform:none;
-}
-}
-
-@keyframes moto4{
-0%{
-opacity:0;
-transform:translateX(120px) rotate(7deg) scale(.7);
-}
-100%{
-opacity:1;
-transform:none;
-}
-}
-
-.moto-card:nth-child(1):hover{
-transform:
-translateY(-12px)
-rotate(-2deg)
-scale(1.03);
-
-border-radius:52px;
-}
-
-.moto-card:nth-child(2):hover{
-transform:
-translateY(-16px)
-scale(1.05);
-
-border-radius:18px;
-}
-
-.moto-card:nth-child(3):hover{
-transform:
-translateY(-12px)
-rotate(2deg)
-scale(1.03);
-
-border-radius:60px;
-}
-
-.moto-card:nth-child(4):hover{
-transform:
-translateY(-10px)
-skew(-2deg)
-scale(1.03);
-
-border-radius:42px;
-}
+.moto-card:nth-child(1):hover{ transform:translateY(-12px) rotate(-2deg) scale(1.03); border-radius:50px; }
+.moto-card:nth-child(2):hover{ transform:translateY(-15px) scale(1.05); border-radius:16px; }
+.moto-card:nth-child(3):hover{ transform:translateY(-11px) rotate(2deg) scale(1.03); border-radius:56px; }
+.moto-card:nth-child(4):hover{ transform:translateY(-9px) skew(-2deg) scale(1.03); border-radius:40px; }
 
 .moto-preview{
-height:220px;
-overflow:hidden;
-background:#191919;
-display:flex;
-align-items:center;
-justify-content:center;
+  height:200px; overflow:hidden; background:#181818;
+  display:flex; align-items:center; justify-content:center;
 }
-
 .moto-preview img{
-width:100%;
-height:100%;
-object-fit:cover;
-
-transition:
-transform 1.2s cubic-bezier(.19,1,.22,1),
-filter 1.2s cubic-bezier(.19,1,.22,1);
+  width:100%; height:100%; object-fit:cover;
+  transition: transform 1.2s cubic-bezier(.19,1,.22,1), filter 1.2s;
 }
-
-.moto-card:hover .moto-preview img{
-transform:scale(1.12);
-filter:contrast(1.08);
-}
-
-.moto-info{
-padding:22px;
-}
-
+.moto-card:hover .moto-preview img{ transform:scale(1.1); filter:contrast(1.08); }
+.moto-info{ padding:18px; }
 .brand{
-font-size:.8rem;
-letter-spacing:3px;
-color:var(--accent);
-margin-bottom:10px;
+  font-size:.72rem; letter-spacing:3px; color:var(--accent);
+  text-transform:uppercase; margin-bottom:6px; opacity:0;
 }
-
 .model{
-font-size:1.8rem;
-font-weight:700;
-margin-bottom:14px;
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.7rem; letter-spacing:1px; margin-bottom:12px; opacity:0;
 }
-
-.specs{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-margin-bottom:18px;
-}
-
+.specs{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
 .spec{
-background:#1d1d1d;
-padding:10px 14px;
-border-radius:14px;
-font-size:.82rem;
-
-transition:
-transform .8s cubic-bezier(.34,1.56,.64,1),
-border-radius .8s cubic-bezier(.34,1.56,.64,1);
+  background:#1c1c1c; border:1px solid var(--border);
+  padding:7px 12px; border-radius:12px; font-size:.78rem; color:var(--muted);
+  opacity:0;
+  transition: transform .8s cubic-bezier(.34,1.56,.64,1), border-radius .8s;
 }
-
-.moto-card:hover .spec:nth-child(1){
-transform:translateY(-5px) rotate(-2deg);
-border-radius:24px;
+.moto-card:hover .spec:nth-child(1){ transform:translateY(-5px) rotate(-2deg); border-radius:22px; }
+.moto-card:hover .spec:nth-child(2){ transform:scale(1.1); border-radius:8px; }
+.moto-card:hover .spec:nth-child(3){ transform:translateY(-5px) rotate(2deg); border-radius:26px; }
+.moto-desc{
+  color:var(--muted); font-size:.82rem; line-height:1.65;
+  margin-bottom:14px; opacity:0;
 }
-
-.moto-card:hover .spec:nth-child(2){
-transform:scale(1.1);
-border-radius:10px;
-}
-
-.moto-card:hover .spec:nth-child(3){
-transform:translateY(-6px) rotate(2deg);
-border-radius:28px;
-}
-
 .price{
-font-size:1.4rem;
-font-weight:700;
-color:var(--accent);
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.5rem; color:var(--accent); letter-spacing:1px; opacity:0;
 }
 
-/* =========================
-ABOUT
-========================= */
-
-.about{
-width:min(900px,100%);
-background:#131313;
-padding:50px;
-border-radius:42px;
-border:1px solid var(--border);
-
-opacity:0;
-animation:aboutAnim 1.1s cubic-bezier(.16,1,.3,1) forwards;
+/* ══════════════════════════════════════
+   ⑦ CONTACTO
+══════════════════════════════════════ */
+.contact-wrap{
+  width:min(860px,100%);
+  display:flex; flex-direction:column; gap:24px;
 }
+.contact-header{ opacity:0; }
 
-@keyframes aboutAnim{
-0%{
-opacity:0;
-transform:
-scale(.75)
-rotate(5deg);
-
-border-radius:100px;
+.contact-profile{
+  background:var(--card); border:1px solid var(--border);
+  border-radius:28px; padding:28px 32px;
+  display:flex; gap:28px; align-items:center;
+  opacity:0;
 }
-100%{
-opacity:1;
-transform:none;
+.contact-avatar{
+  width:80px; height:80px; border-radius:50%;
+  background:linear-gradient(135deg, var(--accent), #ff9068);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Bebas Neue',sans-serif; font-size:2rem; color:white;
+  flex-shrink:0;
+  border:3px solid rgba(255,75,31,.3);
 }
+.contact-profile-info h3{ font-size:1.2rem; font-weight:700; margin-bottom:4px; }
+.contact-profile-info p{ font-size:.85rem; color:var(--muted); margin-bottom:12px; }
+.contact-profile-stats{ display:flex; gap:24px; }
+.pstat{ text-align:center; }
+.pstat-num{ font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--white); }
+.pstat-lbl{ font-size:.7rem; color:var(--muted); letter-spacing:.5px; }
+
+.contact-links{
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:14px;
 }
-
-.about h2{
-font-size:3rem;
-margin-bottom:20px;
+.contact-link{
+  background:var(--card); border:1px solid var(--border);
+  border-radius:22px; padding:20px;
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+  cursor:pointer; opacity:0;
+  transition: transform .8s cubic-bezier(.19,1,.22,1), border-radius .8s, border-color .3s, background .3s;
+  text-decoration:none; color:inherit;
 }
+.contact-link:nth-child(1):hover{ transform:translateY(-10px) rotate(-2deg); border-radius:36px; border-color:rgba(225,48,108,.4); background:rgba(225,48,108,.05); }
+.contact-link:nth-child(2):hover{ transform:translateY(-12px) scale(1.05); border-radius:14px; border-color:rgba(29,161,242,.4); background:rgba(29,161,242,.05); }
+.contact-link:nth-child(3):hover{ transform:translateY(-10px) rotate(2deg); border-radius:40px; border-color:rgba(37,211,102,.4); background:rgba(37,211,102,.05); }
+.contact-link-icon{ font-size:1.6rem; }
+.contact-link-name{ font-weight:600; font-size:.88rem; }
+.contact-link-handle{ font-size:.78rem; color:var(--muted); }
 
-.about p{
-line-height:2;
-color:var(--muted);
+.contact-info-row{
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:14px;
 }
+.info-card{
+  background:var(--card); border:1px solid var(--border);
+  border-radius:20px; padding:20px 22px;
+  opacity:0;
+  transition: transform .7s cubic-bezier(.19,1,.22,1), border-radius .7s;
+}
+.info-card:hover{ transform:translateY(-6px); border-radius:30px; }
+.info-card-label{ font-size:.7rem; letter-spacing:3px; color:var(--accent); text-transform:uppercase; margin-bottom:8px; }
+.info-card-value{ font-size:.9rem; color:var(--white); line-height:1.6; }
 
-/* =========================
-RESPONSIVE
-========================= */
+/* ══════════════════════════════════════
+   ⑧ SOBRE NOSOTROS
+══════════════════════════════════════ */
+.about-wrap{
+  width:min(880px,100%);
+  display:flex; flex-direction:column; gap:22px;
+}
+.about-main{
+  background:var(--card); border:1px solid var(--border);
+  border-radius:30px; padding:40px 44px;
+  opacity:0;
+}
+.about-main h2{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:3.2rem; margin-bottom:16px; opacity:0;
+}
+.about-main p{ line-height:2; color:var(--muted); font-size:.9rem; opacity:0; }
+.about-team{
+  display:grid; grid-template-columns:1fr 1fr 1fr;
+  gap:14px;
+}
+.team-card{
+  background:var(--card); border:1px solid var(--border);
+  border-radius:20px; padding:20px 24px;
+  display:flex; gap:16px; align-items:center;
+  opacity:0;
+  transition: transform .8s cubic-bezier(.19,1,.22,1), border-radius .8s;
+}
+.team-card:hover{ transform:translateY(-6px) scale(1.02); border-radius:32px; }
+.team-avatar{
+  width:46px; height:46px; border-radius:50%;
+  background:linear-gradient(135deg,#333,#1a1a1a);
+  border:2px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Bebas Neue',sans-serif; font-size:1.1rem; color:var(--accent);
+  flex-shrink:0;
+}
+.team-name{ font-weight:600; font-size:.9rem; margin-bottom:3px; }
+.team-role{ font-size:.78rem; color:var(--muted); }
 
+/* ══════════════════════════════════════
+   KEYFRAMES — ENTER / EXIT
+══════════════════════════════════════ */
+
+/* portada */
+@keyframes tagSwing   { 0%{opacity:0;transform:translateX(-120px) translateY(-50px) rotate(-20deg);}60%{transform:translateX(8px) rotate(2deg);}80%{transform:translateX(-3px) rotate(-1deg);}100%{opacity:1;transform:none;} }
+@keyframes titleCrash { 0%{opacity:0;transform:translateY(100px) skewY(8deg) scale(.75);filter:blur(8px);}60%{opacity:1;transform:translateY(-10px) skewY(-2deg) scale(1.03);filter:blur(0);}80%{transform:translateY(5px) skewY(1deg);}100%{opacity:1;transform:none;} }
+@keyframes subtitleIn { 0%{opacity:0;transform:translateX(120px) rotate(5deg);}65%{opacity:1;transform:translateX(-8px) rotate(-1deg);}100%{opacity:1;transform:none;} }
+@keyframes badgesIn   { 0%{opacity:0;transform:translateY(30px) scale(.8);}60%{opacity:1;transform:translateY(-5px) scale(1.03);}100%{opacity:1;transform:none;} }
+@keyframes btnsSpring { 0%{opacity:0;transform:translateY(70px) scale(.5) rotate(-8deg);}55%{opacity:1;transform:translateY(-14px) scale(1.07) rotate(2deg);}75%{transform:translateY(6px) scale(.97);}100%{opacity:1;transform:none;} }
+@keyframes imgUnfold  { 0%{opacity:0;transform:perspective(900px) rotateY(40deg) translateX(180px) scale(.6);border-radius:120px;}60%{opacity:1;transform:perspective(900px) rotateY(-3deg) translateX(-8px) scale(1.02);border-radius:20px;}80%{transform:perspective(900px) rotateY(1.5deg) translateX(4px);}100%{opacity:1;transform:none;border-radius:36px;} }
+
+@keyframes tagOut     { to{opacity:0;transform:translateX(-130px) rotate(-15deg);} }
+@keyframes titleOut   { to{opacity:0;transform:translateY(60px) scale(.8) skewY(4deg);filter:blur(6px);} }
+@keyframes subtitleOut{ to{opacity:0;transform:translateX(140px) rotate(7deg);} }
+@keyframes badgesOut  { to{opacity:0;transform:translateY(30px) scale(.7);} }
+@keyframes btnsOut    { to{opacity:0;transform:translateY(50px) scale(.5);} }
+@keyframes imgOut     { to{opacity:0;transform:perspective(900px) rotateY(-28deg) translateX(-120px) scale(.5);} }
+
+/* presentation */
+@keyframes labelIn    { 0%{opacity:0;transform:translateX(-60px) rotate(-5deg);}100%{opacity:1;transform:none;} }
+@keyframes titleSlam  { 0%{opacity:0;transform:translateY(60px) scale(.8);}60%{opacity:1;transform:translateY(-8px) scale(1.04);}80%{transform:translateY(4px);}100%{opacity:1;transform:none;} }
+@keyframes bodyFade   { 0%{opacity:0;transform:translateY(20px);filter:blur(4px);}100%{opacity:1;transform:none;filter:blur(0);} }
+@keyframes statIn1    { 0%{opacity:0;transform:translateX(-60px) rotate(-4deg) scale(.8);}60%{opacity:1;transform:translateX(5px) rotate(.5deg);}100%{opacity:1;transform:none;} }
+@keyframes statIn2    { 0%{opacity:0;transform:translateY(-50px) scale(.7);}60%{opacity:1;transform:translateY(6px) scale(1.04);}100%{opacity:1;transform:none;} }
+@keyframes statIn3    { 0%{opacity:0;transform:translateX(60px) rotate(4deg) scale(.8);}60%{opacity:1;transform:translateX(-5px);}100%{opacity:1;transform:none;} }
+@keyframes statIn4    { 0%{opacity:0;transform:translateY(50px) scale(.7) rotate(5deg);}60%{opacity:1;transform:translateY(-6px) scale(1.03) rotate(-1deg);}100%{opacity:1;transform:none;} }
+@keyframes pillarIn1  { 0%{opacity:0;transform:translateX(80px) skewX(-5deg);}60%{opacity:1;transform:translateX(-6px) skewX(1deg);}100%{opacity:1;transform:none;} }
+@keyframes pillarIn2  { 0%{opacity:0;transform:translateX(80px) skewX(-5deg);}60%{opacity:1;transform:translateX(-6px) skewX(1deg);}100%{opacity:1;transform:none;} }
+@keyframes pillarIn3  { 0%{opacity:0;transform:translateX(80px) skewX(-5deg);}60%{opacity:1;transform:translateX(-6px) skewX(1deg);}100%{opacity:1;transform:none;} }
+
+@keyframes labelOut   { to{opacity:0;transform:translateX(-60px);} }
+@keyframes titleSlamOut{to{opacity:0;transform:translateY(50px) scale(.8);} }
+@keyframes bodyFadeOut{ to{opacity:0;transform:translateY(20px);filter:blur(4px);} }
+@keyframes statOut    { to{opacity:0;transform:scale(0) rotate(10deg);} }
+@keyframes pillarOut  { to{opacity:0;transform:translateX(80px) skewX(5deg);} }
+
+/* indice */
+@keyframes indHdrIn   { 0%{opacity:0;transform:translateY(-40px) skewY(-3deg);}60%{opacity:1;transform:translateY(5px);}100%{opacity:1;transform:none;} }
+@keyframes indItem1   { 0%{opacity:0;transform:translateX(-120px) rotate(-6deg) scale(.7);}60%{opacity:1;transform:translateX(8px) rotate(1deg);}100%{opacity:1;transform:none;} }
+@keyframes indItem2   { 0%{opacity:0;transform:translateY(80px) scale(.6);}60%{opacity:1;transform:translateY(-8px) scale(1.04);}100%{opacity:1;transform:none;} }
+@keyframes indItem3   { 0%{opacity:0;transform:translateX(120px) rotate(5deg) scale(.7);}60%{opacity:1;transform:translateX(-8px);}100%{opacity:1;transform:none;} }
+@keyframes indItem4   { 0%{opacity:0;transform:translateY(-80px) scale(.7) rotate(-4deg);}60%{opacity:1;transform:translateY(8px);}100%{opacity:1;transform:none;} }
+@keyframes indItem5   { 0%{opacity:0;transform:scale(0) rotate(15deg);}60%{opacity:1;transform:scale(1.05) rotate(-2deg);}100%{opacity:1;transform:none;} }
+@keyframes indItem6   { 0%{opacity:0;transform:translateY(80px) rotate(6deg) scale(.6);}60%{opacity:1;transform:translateY(-8px) rotate(-1deg);}100%{opacity:1;transform:none;} }
+@keyframes indItem7   { 0%{opacity:0;transform:translateX(-100px) skewX(-8deg);}60%{opacity:1;transform:translateX(6px) skewX(1deg);}100%{opacity:1;transform:none;} }
+
+@keyframes indHdrOut  { to{opacity:0;transform:translateY(-30px);} }
+@keyframes indItemOut { to{opacity:0;transform:scale(0) rotate(-8deg);} }
+
+/* oferta */
+@keyframes ofHdrIn    { 0%{opacity:0;transform:translateX(-80px) skewX(-6deg);}60%{opacity:1;transform:translateX(6px);}100%{opacity:1;transform:none;} }
+@keyframes ofHeroIn   { 0%{opacity:0;transform:perspective(700px) rotateX(-20deg) translateY(-40px) scale(.85);}60%{opacity:1;transform:perspective(700px) rotateX(3deg);}80%{transform:none;}100%{opacity:1;transform:none;} }
+@keyframes ofCat1     { 0%{opacity:0;transform:translateX(-80px) rotate(-8deg) scale(.7);}60%{opacity:1;transform:translateX(6px) rotate(1deg);}100%{opacity:1;transform:none;} }
+@keyframes ofCat2     { 0%{opacity:0;transform:translateY(80px) scale(.6);}60%{opacity:1;transform:translateY(-8px) scale(1.04);}100%{opacity:1;transform:none;} }
+@keyframes ofCat3     { 0%{opacity:0;transform:translateY(-80px) rotate(6deg) scale(.7);}60%{opacity:1;transform:translateY(8px);}100%{opacity:1;transform:none;} }
+@keyframes ofCat4     { 0%{opacity:0;transform:translateX(80px) rotate(8deg) scale(.7);}60%{opacity:1;transform:translateX(-6px);}100%{opacity:1;transform:none;} }
+
+@keyframes ofHdrOut   { to{opacity:0;transform:translateX(80px);} }
+@keyframes ofHeroOut  { to{opacity:0;transform:perspective(700px) rotateX(20deg) scale(.7);} }
+@keyframes ofCatOut   { to{opacity:0;transform:scale(0) rotate(12deg);} }
+
+/* categories */
+@keyframes catDrop1   { 0%{opacity:0;transform:translateY(-200px) rotate(-12deg) scale(.6);}65%{opacity:1;transform:translateY(12px) rotate(2deg) scale(1.04);}82%{transform:translateY(-5px);}100%{opacity:1;transform:none;} }
+@keyframes catSpin2   { 0%{opacity:0;transform:scale(0) rotate(-180deg);}60%{opacity:1;transform:scale(1.07) rotate(5deg);}80%{transform:scale(.97) rotate(-1.5deg);}100%{opacity:1;transform:none;} }
+@keyframes catSlam3   { 0%{opacity:0;transform:translateX(220px) skewX(-10deg) scale(.7);}60%{opacity:1;transform:translateX(-12px) skewX(2deg);}80%{transform:translateX(5px);}100%{opacity:1;transform:none;} }
+@keyframes catRise4   { 0%{opacity:0;transform:translateY(200px) scale(.5) rotate(10deg);}60%{opacity:1;transform:translateY(-14px) scale(1.05) rotate(-2deg);}80%{transform:translateY(7px);}100%{opacity:1;transform:none;} }
+@keyframes catExit1   { to{opacity:0;transform:translateY(-160px) rotate(-10deg) scale(.6);} }
+@keyframes catExit2   { to{opacity:0;transform:scale(0) rotate(160deg);} }
+@keyframes catExit3   { to{opacity:0;transform:translateX(200px) skewX(8deg) scale(.6);} }
+@keyframes catExit4   { to{opacity:0;transform:translateY(180px) scale(.5) rotate(8deg);} }
+
+/* moto cards */
+@keyframes motoFlip1  { 0%{opacity:0;transform:perspective(800px) rotateX(-90deg) translateY(-80px);}60%{opacity:1;transform:perspective(800px) rotateX(7deg) translateY(5px);}80%{transform:perspective(800px) rotateX(-2.5deg);}100%{opacity:1;transform:none;} }
+@keyframes motoScrewL { 0%{opacity:0;transform:translateX(-160px) rotate(-15deg) scale(.6);filter:blur(6px);}55%{opacity:1;transform:translateX(10px) rotate(2deg) scale(1.04);filter:blur(0);}75%{transform:translateX(-4px) rotate(-1deg);}100%{opacity:1;transform:none;} }
+@keyframes motoZap3   { 0%{opacity:0;transform:translateY(-140px) skewX(12deg) scale(.7);}55%{opacity:1;transform:translateY(9px) skewX(-2.5deg);}75%{transform:translateY(-3px);}100%{opacity:1;transform:none;} }
+@keyframes motoScrewR { 0%{opacity:0;transform:translateX(160px) rotate(15deg) scale(.6);filter:blur(6px);}55%{opacity:1;transform:translateX(-10px) rotate(-2deg) scale(1.04);filter:blur(0);}75%{transform:translateX(4px) rotate(1deg);}100%{opacity:1;transform:none;} }
+@keyframes motoExit1  { to{opacity:0;transform:perspective(800px) rotateX(80deg) translateY(-60px) scale(.7);} }
+@keyframes motoExit2  { to{opacity:0;transform:translateX(-180px) rotate(-18deg) scale(.5);filter:blur(8px);} }
+@keyframes motoExit3  { to{opacity:0;transform:translateY(140px) skewX(-10deg) scale(.6);} }
+@keyframes motoExit4  { to{opacity:0;transform:translateX(180px) rotate(18deg) scale(.5);filter:blur(8px);} }
+@keyframes backIn     { 0%{opacity:0;transform:translateX(-80px) rotate(-10deg) scale(.7);}60%{opacity:1;transform:translateX(7px) rotate(1deg);}80%{transform:translateX(-2px);}100%{opacity:1;transform:none;} }
+@keyframes backOut    { to{opacity:0;transform:translateX(-100px) rotate(-12deg) scale(.6);} }
+@keyframes brandIn    { 0%{opacity:0;transform:translateX(-30px) skewX(-8deg);}100%{opacity:1;transform:none;} }
+@keyframes modelIn    { 0%{opacity:0;transform:translateY(22px) scale(.85);}60%{opacity:1;transform:translateY(-3px) scale(1.03);}100%{opacity:1;transform:none;} }
+@keyframes specIn1    { 0%{opacity:0;transform:translateY(18px) rotate(-6deg) scale(.7);}60%{opacity:1;transform:translateY(-3px) rotate(1deg);}100%{opacity:1;transform:none;} }
+@keyframes specIn2    { 0%{opacity:0;transform:scale(0) rotate(20deg);}60%{opacity:1;transform:scale(1.1) rotate(-3deg);}100%{opacity:1;transform:none;} }
+@keyframes specIn3    { 0%{opacity:0;transform:translateY(18px) rotate(6deg) scale(.7);}60%{opacity:1;transform:translateY(-3px) rotate(-1deg);}100%{opacity:1;transform:none;} }
+@keyframes descIn     { 0%{opacity:0;transform:translateX(40px);filter:blur(4px);}100%{opacity:1;transform:none;filter:blur(0);} }
+@keyframes priceIn    { 0%{opacity:0;transform:translateY(16px) scale(.6) rotate(4deg);}60%{opacity:1;transform:translateY(-3px) scale(1.07) rotate(-1deg);}100%{opacity:1;transform:none;} }
+@keyframes brandOut   { to{opacity:0;transform:translateX(-40px) skewX(10deg);} }
+@keyframes modelOut   { to{opacity:0;transform:translateY(28px) scale(.8);} }
+@keyframes spec1Out   { to{opacity:0;transform:translateY(28px) rotate(-10deg) scale(.5);} }
+@keyframes spec2Out   { to{opacity:0;transform:scale(0) rotate(-20deg);} }
+@keyframes spec3Out   { to{opacity:0;transform:translateY(28px) rotate(10deg) scale(.5);} }
+@keyframes descOut    { to{opacity:0;transform:translateX(50px);filter:blur(4px);} }
+@keyframes priceOut   { to{opacity:0;transform:scale(0) rotate(8deg);} }
+
+/* contact */
+@keyframes contactHdrIn  { 0%{opacity:0;transform:translateY(-50px) skewY(-3deg);}60%{opacity:1;transform:translateY(5px);}100%{opacity:1;transform:none;} }
+@keyframes profileIn     { 0%{opacity:0;transform:perspective(700px) rotateX(-15deg) scale(.85);}60%{opacity:1;transform:none;}100%{opacity:1;transform:none;} }
+@keyframes link1In       { 0%{opacity:0;transform:translateX(-80px) rotate(-8deg);}60%{opacity:1;transform:translateX(6px);}100%{opacity:1;transform:none;} }
+@keyframes link2In       { 0%{opacity:0;transform:translateY(80px) scale(.5);}60%{opacity:1;transform:translateY(-8px) scale(1.05);}100%{opacity:1;transform:none;} }
+@keyframes link3In       { 0%{opacity:0;transform:translateX(80px) rotate(8deg);}60%{opacity:1;transform:translateX(-6px);}100%{opacity:1;transform:none;} }
+@keyframes infoCard1In   { 0%{opacity:0;transform:translateX(-60px) skewX(-4deg);}60%{opacity:1;transform:translateX(4px);}100%{opacity:1;transform:none;} }
+@keyframes infoCard2In   { 0%{opacity:0;transform:translateX(60px) skewX(4deg);}60%{opacity:1;transform:translateX(-4px);}100%{opacity:1;transform:none;} }
+@keyframes contactHdrOut { to{opacity:0;transform:translateY(-40px);} }
+@keyframes profileOut    { to{opacity:0;transform:perspective(700px) rotateX(18deg) scale(.7);} }
+@keyframes linkOut       { to{opacity:0;transform:scale(0) rotate(12deg);} }
+@keyframes infoCardOut   { to{opacity:0;transform:translateY(40px) scale(.8);} }
+
+/* about */
+@keyframes aboutMainIn   { 0%{opacity:0;transform:scale(.65) rotate(-7deg);border-radius:120px;}55%{opacity:1;transform:scale(1.03) rotate(1.2deg);border-radius:16px;}75%{transform:scale(.98);}100%{opacity:1;transform:none;border-radius:30px;} }
+@keyframes aboutMainOut  { to{opacity:0;transform:scale(.5) rotate(9deg);border-radius:120px;} }
+@keyframes aboutH2In     { 0%{opacity:0;transform:translateX(-80px) skewX(-12deg);}55%{opacity:1;transform:translateX(5px) skewX(2deg);}80%{transform:translateX(-2px);}100%{opacity:1;transform:none;} }
+@keyframes aboutH2Out    { to{opacity:0;transform:translateX(-90px) skewX(10deg);} }
+@keyframes aboutPIn      { 0%{opacity:0;transform:translateY(36px) scale(.9);filter:blur(4px);}55%{opacity:1;transform:translateY(-3px);filter:blur(0);}100%{opacity:1;transform:none;} }
+@keyframes aboutPOut     { to{opacity:0;transform:translateY(45px) scale(.85);filter:blur(4px);} }
+@keyframes team1In       { 0%{opacity:0;transform:translateX(-80px) rotate(-5deg) scale(.7);}60%{opacity:1;transform:translateX(5px);}100%{opacity:1;transform:none;} }
+@keyframes team2In       { 0%{opacity:0;transform:translateX(80px) rotate(5deg) scale(.7);}60%{opacity:1;transform:translateX(-5px);}100%{opacity:1;transform:none;} }
+@keyframes teamOut       { to{opacity:0;transform:scale(0) rotate(8deg);} }
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
 @media(max-width:1100px){
-
-.home-wrap{
-grid-template-columns:1fr;
-overflow:auto;
+  .portada-wrap,.pres-wrap{ grid-template-columns:1fr; }
+  .portada-img{ height:260px; }
+  .oferta-cats{ grid-template-columns:1fr 1fr; }
 }
-
-.home-image{
-height:320px;
-}
-
-}
-
 @media(max-width:760px){
-
-body{
-overflow:auto;
-height:auto;
-}
-
-.page{
-padding:100px 16px 120px;
-overflow:auto;
-align-items:flex-start;
-}
-
-.logo-text{
-width:180px;
-}
-
-.logo-icon{
-width:52px;
-}
-
-.top-ui{
-bottom:18px;
-top:auto;
-flex-wrap:wrap;
-justify-content:center;
-width:100%;
-padding:0 10px;
-}
-
-.top-btn{
-flex:1;
-min-width:110px;
-}
-
-.title{
-font-size:3rem;
-}
-
-.categories,
-.moto-page{
-grid-template-columns:1fr;
-}
-
-.home-image{
-height:260px;
-}
-
-.about{
-padding:30px;
-}
-
+  html,body{ overflow:auto; height:auto; }
+  .page{ padding:72px 14px 100px; overflow:auto; align-items:flex-start; }
+  .nav{ flex-wrap:wrap; height:auto; padding:10px; gap:4px; }
+  .nav-btn{ font-size:.7rem; padding:6px 11px; }
+  .logo-text{ width:160px; }
+  .logo-icon{ width:50px; }
+  .portada-title{ font-size:3rem; }
+  .categories,.moto-page{ grid-template-columns:1fr; }
+  .oferta-cats{ grid-template-columns:1fr 1fr; }
+  .contact-links{ grid-template-columns:1fr; }
+  .contact-info-row{ grid-template-columns:1fr; }
+  .about-team{ grid-template-columns:1fr; }
+  .pres-stats{ grid-template-columns:1fr 1fr; }
 }
 
 </style>
@@ -922,562 +769,736 @@ padding:30px;
 <body>
 
 <img src="assets/images/logo_text.png" class="logo-text">
-<img src="assets/images/logo.png" class="logo-icon">
+<img src="assets/images/logo.png"      class="logo-icon">
 
-<div class="top-ui">
-<button class="top-btn" onclick="showPage('home')">Inicio</button>
-<button class="top-btn" onclick="showPage('categories')">Categorías</button>
-<button class="top-btn" onclick="showPage('about')">Sobre nosotros</button>
-</div>
+<nav class="nav">
+  <button class="nav-btn active-nav" onclick="navigate('portada')">Portada</button>
+  <button class="nav-btn" onclick="navigate('presentacion')">Presentación</button>
+  <button class="nav-btn" onclick="navigate('indice')">Índice</button>
+  <button class="nav-btn" onclick="navigate('oferta')">Qué ofrecemos</button>
+  <button class="nav-btn" onclick="navigate('categories')">Catálogo</button>
+  <button class="nav-btn" onclick="navigate('contacto')">Contacto</button>
+  <button class="nav-btn" onclick="navigate('about')">Nosotros</button>
+</nav>
 
-<!-- HOME -->
-
-<section class="page active" id="home">
-
-<div class="home-wrap">
-
-<div class="home-left">
-
-<div class="tag">CATÁLOGO creado por 3roC, #20 y #29</div>
-
-<div class="title">
-LA RUTA<br>
-COMIENZA<br>
-<span>AQUÍ</span>
-</div>
-
-<div class="desc">
-Explora motocicletas deportivas, naked, adventure y custom de la manera mas sencilla posible.
-</div>
-
-<div class="home-buttons">
-
-<button class="main-btn" onclick="showPage('categories')">
-Ver categorías
-</button>
-
-<button class="ghost-btn" onclick="showPage('about')">
-Sobre nosotros
-</button>
-
-</div>
-
-</div>
-
-<div class="home-image">
-<img src="assets/images/portada.png">
-</div>
-
-</div>
-
+<!-- ══════════ ① PORTADA ══════════ -->
+<section class="page active" id="portada">
+  <div class="portada-wrap">
+    <div class="portada-left">
+      <div class="portada-tag">Catálogo Oficial · 3ro C · #20, #26 &amp; #29</div>
+      <div class="portada-title">MOTO<br><em>VERSE</em><br>2025</div>
+      <div class="portada-subtitle">El catálogo definitivo de motocicletas de alta cilindrada. Sport, Naked, Adventure y Custom — todo en un solo lugar.</div>
+      <div class="portada-badges">
+        <span class="badge">+ 16 Modelos</span>
+        <span class="badge">4 Categorías</span>
+        <span class="badge">Alta Cilindrada</span>
+        <span class="badge">Precios RD$</span>
+      </div>
+      <div class="portada-btns">
+        <button class="btn-primary" onclick="navigate('indice')">Ver índice</button>
+        <button class="btn-ghost"   onclick="navigate('categories')">Ir al catálogo</button>
+      </div>
+    </div>
+    <div class="portada-img">
+      <img src="assets/images/portada.png" alt="Portada">
+      <div class="portada-img-overlay"></div>
+      <div class="portada-img-label">
+        <strong>Kawasaki Ninja H2R</strong>310 HP · La más potente
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- CATEGORIES -->
+<!-- ══════════ ② PRESENTACIÓN ══════════ -->
+<section class="page" id="presentacion">
+  <div class="scroll-inner" style="display:flex;align-items:center;justify-content:center;">
+  <div class="pres-wrap">
 
+    <div class="pres-left">
+      <div class="section-label">Presentación</div>
+      <div class="section-title">¿QUÉ ES<br>MOTOVERSE?</div>
+      <div class="section-body">MotoVerse es un catálogo digital interactivo creado por estudiantes de 3ro C para explorar el mundo de las motocicletas de alta cilindrada de forma visual, organizada y moderna.</div>
+      <div class="section-body">Reunimos las máquinas más emblemáticas del mercado actual, divididas por categoría, con especificaciones técnicas y precios en pesos dominicanos.</div>
+
+      <div class="pres-stats">
+        <div class="stat-card"><div class="stat-num">16+</div><div class="stat-label">Modelos</div></div>
+        <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">Categorías</div></div>
+        <div class="stat-card"><div class="stat-num">8</div><div class="stat-label">Marcas</div></div>
+        <div class="stat-card"><div class="stat-num">100%</div><div class="stat-label">Alta cilindrada</div></div>
+      </div>
+    </div>
+
+    <div class="pres-right">
+      <div class="pres-pillars">
+        <div class="pillar">
+          <div class="pillar-icon">🏁</div>
+          <div><div class="pillar-title">Rendimiento real</div><div class="pillar-text">Cada moto incluye cilindrada, potencia y velocidad máxima verificados.</div></div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">💰</div>
+          <div><div class="pillar-title">Precios en RD$</div><div class="pillar-text">Todos los precios están expresados en pesos dominicanos para mayor referencia local.</div></div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🗂️</div>
+          <div><div class="pillar-title">4 categorías claras</div><div class="pillar-text">Sport, Naked, Adventure y Custom — cada una con su filosofía y sus mejores exponentes.</div></div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">✦</div>
+          <div><div class="pillar-title">Diseño moderno</div><div class="pillar-text">Interfaz fluida con animaciones únicas y navegación intuitiva para cualquier dispositivo.</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+</section>
+
+<!-- ══════════ ③ ÍNDICE ══════════ -->
+<section class="page" id="indice">
+  <div class="scroll-inner" style="display:flex;align-items:center;justify-content:center;">
+  <div class="indice-wrap">
+    <div class="indice-header">
+      <div class="section-label">Índice</div>
+      <div class="section-title">CONTENIDO<br>DEL CATÁLOGO</div>
+    </div>
+    <div class="indice-grid">
+
+      <div class="indice-item" onclick="navigate('portada')">
+        <div class="indice-num">01</div>
+        <div class="indice-info"><div class="indice-name">Portada</div><div class="indice-sub">Presentación visual principal</div></div>
+        <div class="indice-arrow">→</div>
+      </div>
+
+      <div class="indice-item" onclick="navigate('presentacion')">
+        <div class="indice-num">02</div>
+        <div class="indice-info"><div class="indice-name">Presentación</div><div class="indice-sub">¿Qué es MotoVerse?</div></div>
+        <div class="indice-arrow">→</div>
+      </div>
+
+      <div class="indice-item" onclick="navigate('oferta')">
+        <div class="indice-num">03</div>
+        <div class="indice-info"><div class="indice-name">Qué ofrecemos</div><div class="indice-sub">Motos de alta cilindrada por categoría</div></div>
+        <div class="indice-arrow">→</div>
+      </div>
+
+      <div class="indice-item" onclick="navigate('categories')">
+        <div class="indice-num">04</div>
+        <div class="indice-info"><div class="indice-name">Sport</div><div class="indice-sub">H2R · Panigale V4 · M1000RR · ZX10R</div></div>
+        <div class="indice-arrow">→</div>
+      </div>
+
+      <div class="indice-item" onclick="navigate('categories')">
+        <div class="indice-num">05</div>
+        <div class="indice-info"><div class="indice-name">Naked</div><div class="indice-sub">MT-09 · Z900 · Duke 390 · Streetfighter</div></div>
+        <div class="indice-arrow">→</div>
+      </div>
+
+      <div class="indice-item" onclick="navigate('categories')">
+        <div class="indice-num">06</div>
+        <div class="indice-info"><div class="indice-name">Adventure</div><div class="indice-sub">R1250GS · Africa Twin · Ténéré · 1290SA</div></div>
+        <div class="indice-arrow">→</div>
+      </div>
+
+      <div class="indice-item" onclick="navigate('contacto')">
+        <div class="indice-num">07</div>
+        <div class="indice-info"><div class="indice-name">Contacto</div><div class="indice-sub">Instagram, WhatsApp y más</div></div>
+        <div class="indice-arrow">→</div>
+      </div>
+
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- ══════════ ④ QUÉ OFRECEMOS ══════════ -->
+<section class="page" id="oferta">
+  <div class="scroll-inner" style="display:flex;align-items:center;justify-content:center;">
+  <div class="oferta-wrap">
+
+    <div class="oferta-header">
+      <div class="section-label">Oferta</div>
+      <div class="section-title">QUÉ<br>OFRECEMOS</div>
+    </div>
+
+    <div class="oferta-hero">
+      <div class="oferta-hero-text">
+        <h3>Motocicletas de Alta Cilindrada</h3>
+        <p>Nuestra selección cubre las máquinas más potentes, avanzadas y representativas de cada segmento. Desde 398cc hasta 1890cc, todas con tecnología de punta, electrónica avanzada y precios reales en el mercado dominicano.</p>
+      </div>
+      <div class="oferta-hero-badge">
+        <span class="big">16</span>
+        <span class="small">MODELOS</span>
+      </div>
+    </div>
+
+    <div class="oferta-cats">
+
+      <div class="oferta-cat" onclick="navigate('sport')">
+        <span class="oferta-cat-icon">🏎️</span>
+        <div class="oferta-cat-name">Sport</div>
+        <div class="oferta-cat-count">4 modelos · 998–1103cc</div>
+        <div style="font-size:.78rem;color:var(--muted);line-height:1.5;margin-bottom:14px;">Velocidad extrema, aerodinámica agresiva y tecnología de circuito llevada a la calle.</div>
+        <button class="oferta-cat-btn">Ver motos →</button>
+      </div>
+
+      <div class="oferta-cat" onclick="navigate('naked')">
+        <span class="oferta-cat-icon">⚡</span>
+        <div class="oferta-cat-name">Naked</div>
+        <div class="oferta-cat-count">4 modelos · 398–1103cc</div>
+        <div style="font-size:.78rem;color:var(--muted);line-height:1.5;margin-bottom:14px;">Potencia urbana sin carrocería. Directas, agresivas y con carácter propio en cada curva.</div>
+        <button class="oferta-cat-btn">Ver motos →</button>
+      </div>
+
+      <div class="oferta-cat" onclick="navigate('adventure')">
+        <span class="oferta-cat-icon">🌍</span>
+        <div class="oferta-cat-name">Adventure</div>
+        <div class="oferta-cat-count">4 modelos · 689–1301cc</div>
+        <div style="font-size:.78rem;color:var(--muted);line-height:1.5;margin-bottom:14px;">Preparadas para carretera, tierra y cualquier destino. Suspensión larga y gran autonomía.</div>
+        <button class="oferta-cat-btn">Ver motos →</button>
+      </div>
+
+      <div class="oferta-cat" onclick="navigate('custom')">
+        <span class="oferta-cat-icon">🔥</span>
+        <div class="oferta-cat-name">Custom</div>
+        <div class="oferta-cat-count">4 modelos · 1084–1890cc</div>
+        <div style="font-size:.78rem;color:var(--muted);line-height:1.5;margin-bottom:14px;">Diseño clásico, motores enormes y presencia intimidante. Cada una es una declaración de estilo.</div>
+        <button class="oferta-cat-btn">Ver motos →</button>
+      </div>
+
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- ══════════ ⑤ CATEGORÍAS ══════════ -->
 <section class="page" id="categories">
+  <div class="categories">
 
-<div class="categories">
+    <div class="category-card" onclick="navigate('sport')">
+      <div class="category-preview"><div class="sport-slider">
+        <img src="assets/images/h2rFULL.jpg"><img src="assets/images/panigaleside.jpg">
+        <img src="assets/images/bmwside.jpeg"><img src="assets/images/zx10side.jpg">
+      </div></div>
+      <div class="category-name">Sport</div>
+      <div class="category-desc">Velocidad extrema y aerodinámica agresiva. Tecnología de competición en asfalto puro.</div>
+    </div>
 
-<!-- SPORT -->
+    <div class="category-card" onclick="navigate('naked')">
+      <div class="category-preview"><div class="sport-slider">
+        <img src="assets/images/mt09.jpg"><img src="assets/images/z900.png">
+        <img src="assets/images/duke390.png"><img src="assets/images/streetfighter.jpg">
+      </div></div>
+      <div class="category-name">Naked</div>
+      <div class="category-desc">Potencia urbana sin carenados. Igual de emocionantes en ciudad que en carretera abierta.</div>
+    </div>
 
-<div class="category-card" onclick="openCategory('sport')">
+    <div class="category-card" onclick="navigate('adventure')">
+      <div class="category-preview"><div class="sport-slider">
+        <img src="assets/images/1250gs.jpg"><img src="assets/images/africatwin.jpg">
+        <img src="assets/images/tenere700.jpg"><img src="assets/images/ktm1290.jpg">
+      </div></div>
+      <div class="category-name">Adventure</div>
+      <div class="category-desc">Preparadas para carretera, tierra y malas decisiones. Donde otros vehículos no llegan.</div>
+    </div>
 
-<div class="category-preview">
+    <div class="category-card" onclick="navigate('custom')">
+      <div class="category-preview"><div class="sport-slider">
+        <img src="assets/images/harley1.jpg"><img src="assets/images/indian1.jpg">
+        <img src="assets/images/bobber1.jpg"><img src="assets/images/rebel1100.jpg">
+      </div></div>
+      <div class="category-name">Custom</div>
+      <div class="category-desc">Diseño clásico, presencia absurda y motores enormes. Estilo en estado puro.</div>
+    </div>
 
-<div class="sport-slider">
-<img src="assets/images/h2rFULL.jpg">
-<img src="assets/images/panigaleside.jpg">
-<img src="assets/images/bmwside.jpeg">
-<img src="assets/images/zx10side.jpg">
-</div>
-
-</div>
-
-<div class="category-name">Sport</div>
-
-<div class="category-desc">
-Velocidad extrema y aerodinámica agresiva.
-</div>
-
-</div>
-
-<!-- NAKED -->
-
-<div class="category-card" onclick="openCategory('naked')">
-
-<div class="category-preview">
-
-<div class="sport-slider">
-<img src="assets/images/mt09.jpg">
-<img src="assets/images/z900.png">
-<img src="assets/images/duke390.png">
-<img src="assets/images/streetfighter.jpg">
-</div>
-
-</div>
-
-<div class="category-name">Naked</div>
-
-<div class="category-desc">
-Potencia urbana sin carenados innecesarios.
-</div>
-
-</div>
-
-<!-- ADVENTURE -->
-
-<div class="category-card" onclick="openCategory('adventure')">
-
-<div class="category-preview">
-
-<div class="sport-slider">
-<img src="assets/images/1250gs.jpg">
-<img src="assets/images/africatwin.jpg">
-<img src="assets/images/tenere700.jpg">
-<img src="assets/images/ktm1290.jpg">
-</div>
-
-</div>
-
-<div class="category-name">Adventure</div>
-
-<div class="category-desc">
-Preparadas para carretera, tierra y malas decisiones.
-</div>
-
-</div>
-
-<!-- CUSTOM -->
-
-<div class="category-card" onclick="openCategory('custom')">
-
-<div class="category-preview">
-
-<div class="sport-slider">
-<img src="assets/images/harley1.jpg">
-<img src="assets/images/indian1.jpg">
-<img src="assets/images/bobber1.jpg">
-<img src="assets/images/rebel1100.jpg">
-</div>
-
-</div>
-
-<div class="category-name">Custom</div>
-
-<div class="category-desc">
-Diseño clásico, presencia absurda y motores enormes.
-</div>
-
-</div>
-
-</div>
-
+  </div>
 </section>
 
-<!-- SPORT -->
-
+<!-- ══════════ ⑥ SPORT ══════════ -->
 <section class="page" id="sport">
+  <div class="moto-wrapper">
+    <button class="back-category" onclick="navigate('categories')">← Volver a categorías</button>
+    <div class="moto-page">
 
-<div class="moto-wrapper">
+      <div class="moto-card">
+        <div class="moto-preview"><img src="assets/images/h2rFULL.jpg"></div>
+        <div class="moto-info">
+          <div class="brand">KAWASAKI</div><div class="model">Ninja H2R</div>
+          <div class="specs"><div class="spec">998cc</div><div class="spec">310HP</div><div class="spec">400km/h</div></div>
+          <div class="moto-desc">La moto de producción más potente del mundo. Motor sobrealimentado con compresor centrífugo, exclusiva para circuitos cerrados.</div>
+          <div class="price">RD$ 3,500,000</div>
+        </div>
+      </div>
 
-<button class="back-category" onclick="showPage('categories')">
-← Volver
-</button>
+      <div class="moto-card">
+        <div class="moto-preview"><img src="assets/images/panigaleside.jpg"></div>
+        <div class="moto-info">
+          <div class="brand">DUCATI</div><div class="model">Panigale V4</div>
+          <div class="specs"><div class="spec">1103cc</div><div class="spec">214HP</div><div class="spec">299km/h</div></div>
+          <div class="moto-desc">Pináculo de la ingeniería italiana, heredada del MotoGP. Aerodinámica activa y electrónica de última generación.</div>
+          <div class="price">RD$ 2,800,000</div>
+        </div>
+      </div>
 
-<div class="moto-page">
+      <div class="moto-card">
+        <div class="moto-preview"><img src="assets/images/bmwside.jpeg"></div>
+        <div class="moto-info">
+          <div class="brand">BMW</div><div class="model">M1000RR</div>
+          <div class="specs"><div class="spec">999cc</div><div class="spec">212HP</div><div class="spec">306km/h</div></div>
+          <div class="moto-desc">La división M en dos ruedas. Alerones de carbono funcionales y motor afinado al límite del reglamento WorldSBK.</div>
+          <div class="price">RD$ 3,100,000</div>
+        </div>
+      </div>
 
-<div class="moto-card">
-<div class="moto-preview">
-<img src="assets/images/h2rFULL.jpg">
-</div>
+      <div class="moto-card">
+        <div class="moto-preview"><img src="assets/images/zx10side.jpg"></div>
+        <div class="moto-info">
+          <div class="brand">KAWASAKI</div><div class="model">Ninja ZX10R</div>
+          <div class="specs"><div class="spec">998cc</div><div class="spec">203HP</div><div class="spec">299km/h</div></div>
+          <div class="moto-desc">Leyenda viva del Campeonato Mundial de Superbikes. Chasis ultrarrígido, suspensiones Öhlins y electrónica avanzada.</div>
+          <div class="price">RD$ 2,650,000</div>
+        </div>
+      </div>
 
-<div class="moto-info">
-<div class="brand">KAWASAKI</div>
-<div class="model">Ninja H2R</div>
-
-<div class="specs">
-<div class="spec">998cc</div>
-<div class="spec">310HP</div>
-<div class="spec">400km/h</div>
-</div>
-
-<div class="price">RD$ 3,500,000</div>
-</div>
-</div>
-
-<div class="moto-card">
-<div class="moto-preview">
-<img src="assets/images/panigaleside.jpg">
-</div>
-
-<div class="moto-info">
-<div class="brand">DUCATI</div>
-<div class="model">Panigale V4</div>
-
-<div class="specs">
-<div class="spec">1103cc</div>
-<div class="spec">214HP</div>
-<div class="spec">299km/h</div>
-</div>
-
-<div class="price">RD$ 2,800,000</div>
-</div>
-</div>
-
-<div class="moto-card">
-<div class="moto-preview">
-<img src="assets/images/bmwside.jpeg">
-</div>
-
-<div class="moto-info">
-<div class="brand">BMW</div>
-<div class="model">M1000RR</div>
-
-<div class="specs">
-<div class="spec">999cc</div>
-<div class="spec">212HP</div>
-<div class="spec">306km/h</div>
-</div>
-
-<div class="price">RD$ 3,100,000</div>
-</div>
-</div>
-
-<div class="moto-card">
-<div class="moto-preview">
-<img src="assets/images/zx10side.jpg">
-</div>
-
-<div class="moto-info">
-<div class="brand">KAWASAKI</div>
-<div class="model">Ninja ZX10R</div>
-
-<div class="specs">
-<div class="spec">998cc</div>
-<div class="spec">203HP</div>
-<div class="spec">299km/h</div>
-</div>
-
-<div class="price">RD$ 2,650,000</div>
-</div>
-</div>
-
-</div>
-</div>
+    </div>
+  </div>
 </section>
 
-<!-- NAKED -->
-
+<!-- ══════════ ⑦ NAKED ══════════ -->
 <section class="page" id="naked">
+  <div class="moto-wrapper">
+    <button class="back-category" onclick="navigate('categories')">← Volver a categorías</button>
+    <div class="moto-page">
 
-<div class="moto-wrapper">
+      <div class="moto-card">
+        <div class="moto-preview"><img src="assets/images/mt09.jpg"></div>
+        <div class="moto-info">
+          <div class="brand">YAMAHA</div><div class="model">MT-09</div>
+          <div class="specs"><div class="spec">890cc</div><div class="spec">117HP</div><div class="spec">250km/h</div></div>
+          <div class="moto-desc">Corazón del Dark Side de Yamaha. Motor tricilíndrico salvaje con peso ligero para máxima agilidad en cualquier situación.</div>
+          <div class="price">RD$ 1,350,000</div>
+        </div>
+      </div>
 
-<button class="back-category" onclick="showPage('categories')">
-← Volver
-</button>
+      <div class="moto-card">
+        <div class="moto-preview"><img src="assets/images/z900.png"></div>
+        <div class="moto-info">
+          <div class="brand">KAWASAKI</div><div class="model">Z900</div>
+          <div class="specs"><div class="spec">948cc</div><div class="spec">125HP</div><div class="spec">252km/h</div></div>
+          <div class="moto-desc">ADN Sugomi en cada curva: agresiva, musculosa e intimidante. Motor de cuatro cilindros potente y lineal en todo el rango.</div>
+          <div class="price">RD$ 1,420,000</div>
+        </div>
+      </div>
 
-<div class="moto-page">
+      <div class="moto-card">
+        <div class="moto-preview"><img src="assets/images/duke390.png"></div>
+        <div class="moto-info">
+          <div class="brand">KTM</div><div class="model">Duke 390</div>
+          <div class="specs"><div class="spec">398cc</div><div class="spec">44HP</div><div class="spec">169km/h</div></div>
+          <div class="moto-desc">La cilindrada no lo es todo. Suspensiones WP, frenos APC y una experiencia premium accesible para el piloto que empieza.</div>
+          <div class="price">RD$ 520,000</div>
+        </div>
+      </div>
 
-<div class="moto-card">
-<div class="moto-preview">
-<img src="assets/images/mt09.jpg">
-</div>
+      <div class="moto-card">
+        <div class="moto-preview"><img src="assets/images/streetfighter.jpg"></div>
+        <div class="moto-info">
+          <div class="brand">DUCATI</div><div class="model">Streetfighter V4</div>
+          <div class="specs"><div class="spec">1103cc</div><div class="spec">208HP</div><div class="spec">299km/h</div></div>
+          <div class="moto-desc">Una Panigale V4 sin carenados y con el carácter más furioso posible. La naked más extrema de Ducati para la calle.</div>
+          <div class="price">RD$ 1,600,220</div>
+        </div>
+      </div>
 
-<div class="moto-info">
-<div class="brand">YAMAHA</div>
-<div class="model">MT-09</div>
-
-<div class="specs">
-<div class="spec">890cc</div>
-<div class="spec">117HP</div>
-<div class="spec">250km/h</div>
-</div>
-
-<div class="price">RD$ 1,350,000</div>
-</div>
-</div>
-
-<div class="moto-card">
-<div class="moto-preview">
-<img src="assets/images/z900.png">
-</div>
-
-<div class="moto-info">
-<div class="brand">KAWASAKI</div>
-<div class="model">Z900</div>
-
-<div class="specs">
-<div class="spec">948cc</div>
-<div class="spec">125HP</div>
-<div class="spec">252km/h</div>
-</div>
-
-<div class="price">RD$ 1,420,000</div>
-</div>
-</div>
-
-<div class="moto-card">
-<div class="moto-preview">
-<img src="assets/images/duke390.png">
-</div>
-
-<div class="moto-info">
-<div class="brand">KTM</div>
-<div class="model">Duke 390</div>
-
-<div class="specs">
-<div class="spec">398cc</div>
-<div class="spec">44HP</div>
-<div class="spec">169km/h</div>
-</div>
-
-<div class="price">RD$ 520,000</div>
-</div>
-</div>
-
-<div class="moto-card">
-<div class="moto-preview">
-<img src="assets/images/streetfighter.jpg">
-</div>
-
-<div class="moto-info">
-<div class="brand">DUCATI</div>
-<div class="model">Streetfighter V4</div>
-
-<div class="specs">
-<div class="spec">1103cc</div>
-<div class="spec">208HP</div>
-<div class="spec">299km/h</div>
-</div>
-
-<div class="price">RD$ 1,600,220</div>
-</div>
-</div>
-
-</div>
-</div>
+    </div>
+  </div>
 </section>
 
-<!-- ADVENTURE -->
-
+<!-- ══════════ ⑧ ADVENTURE ══════════ -->
 <section class="page" id="adventure">
+  <div class="moto-wrapper">
+    <button class="back-category" onclick="navigate('categories')">← Volver a categorías</button>
+    <div class="moto-page">
 
-<div class="moto-wrapper">
+      <div class="moto-card">
+        <div class="moto-preview"><img src="assets/images/1250gs.jpg"></div>
+        <div class="moto-info">
+          <div class="brand">BMW</div><div class="model">R 1250 GS</div>
+          <div class="specs"><div class="spec">1254cc</div><div class="spec">136HP</div><div class="spec">220km/h</div></div>
+          <div class="moto-desc">Reina del segmento adventure. Motor Boxer con ShiftCam: igual de cómoda cruzando continentes que trepando montañas.</div>
+          <div class="price">RD$ 2,400,000</div>
+        </div>
+      </div>
 
-<button class="back-category" onclick="showPage('categories')">
-← Volver
-</button>
+      <div class="moto-card">
+        <div class="moto-preview"><img src="assets/images/africatwin.jpg"></div>
+        <div class="moto-info">
+          <div class="brand">HONDA</div><div class="model">Africa Twin</div>
+          <div class="specs"><div class="spec">1084cc</div><div class="spec">101HP</div><div class="spec">199km/h</div></div>
+          <div class="moto-desc">Heredera de la ganadora del Dakar. Fiabilidad japonesa, DCT opcional y capacidad todoterreno de alto nivel.</div>
+          <div class="price">RD$ 1,850,000</div>
+        </div>
+      </div>
 
-<div class="moto-page">
+      <div class="moto-card">
+        <div class="moto-preview"><img src="assets/images/tenere700.jpg"></div>
+        <div class="moto-info">
+          <div class="brand">YAMAHA</div><div class="model">Ténéré 700</div>
+          <div class="specs"><div class="spec">689cc</div><div class="spec">72HP</div><div class="spec">190km/h</div></div>
+          <div class="moto-desc">Nacida del Dakar, convertida en fenómeno global. Ligera y ágil, perfecta para quien prefiere la tierra al asfalto perfecto.</div>
+          <div class="price">RD$ 1,100,000</div>
+        </div>
+      </div>
 
-<div class="moto-card">
-<div class="moto-preview">
-<img src="assets/images/1250gs.jpg">
-</div>
+      <div class="moto-card">
+        <div class="moto-preview"><img src="assets/images/ktm1290.jpg"></div>
+        <div class="moto-info">
+          <div class="brand">KTM</div><div class="model">1290 Super Adventure</div>
+          <div class="specs"><div class="spec">1301cc</div><div class="spec">160HP</div><div class="spec">250km/h</div></div>
+          <div class="moto-desc">160 caballos, suspensión semi-activa WP y radar trasero. La opción más extrema del segmento, sin importar el terreno.</div>
+          <div class="price">RD$ 2,150,000</div>
+        </div>
+      </div>
 
-<div class="moto-info">
-<div class="brand">BMW</div>
-<div class="model">R 1250 GS</div>
-
-<div class="specs">
-<div class="spec">1254cc</div>
-<div class="spec">136HP</div>
-<div class="spec">220km/h</div>
-</div>
-
-<div class="price">RD$ 2,400,000</div>
-</div>
-</div>
-
-<div class="moto-card">
-<div class="moto-preview">
-<img src="assets/images/africatwin.jpg">
-</div>
-
-<div class="moto-info">
-<div class="brand">HONDA</div>
-<div class="model">Africa Twin</div>
-
-<div class="specs">
-<div class="spec">1084cc</div>
-<div class="spec">101HP</div>
-<div class="spec">199km/h</div>
-</div>
-
-<div class="price">RD$ 1,850,000</div>
-</div>
-</div>
-
-<div class="moto-card">
-<div class="moto-preview">
-<img src="assets/images/tenere700.jpg">
-</div>
-
-<div class="moto-info">
-<div class="brand">YAMAHA</div>
-<div class="model">Ténéré 700</div>
-
-<div class="specs">
-<div class="spec">689cc</div>
-<div class="spec">72HP</div>
-<div class="spec">190km/h</div>
-</div>
-
-<div class="price">RD$ 1,100,000</div>
-</div>
-</div>
-
-<div class="moto-card">
-<div class="moto-preview">
-<img src="assets/images/ktm1290.jpg">
-</div>
-
-<div class="moto-info">
-<div class="brand">KTM</div>
-<div class="model">1290 Super Adventure</div>
-
-<div class="specs">
-<div class="spec">1301cc</div>
-<div class="spec">160HP</div>
-<div class="spec">250km/h</div>
-</div>
-
-<div class="price">RD$ 2,150,000</div>
-</div>
-</div>
-
-</div>
-</div>
+    </div>
+  </div>
 </section>
 
-<!-- CUSTOM -->
-
+<!-- ══════════ ⑨ CUSTOM ══════════ -->
 <section class="page" id="custom">
+  <div class="moto-wrapper">
+    <button class="back-category" onclick="navigate('categories')">← Volver a categorías</button>
+    <div class="moto-page">
 
-<div class="moto-wrapper">
+      <div class="moto-card">
+        <div class="moto-preview"><img src="assets/images/harley1.jpg"></div>
+        <div class="moto-info">
+          <div class="brand">HARLEY-DAVIDSON</div><div class="model">Fat Boy 114</div>
+          <div class="specs"><div class="spec">1868cc</div><div class="spec">94HP</div><div class="spec">177km/h</div></div>
+          <div class="moto-desc">Ícono cultural en dos ruedas. Ruedas de disco sólido, motor Milwaukee-Eight y una silueta que se escucha antes de verse.</div>
+          <div class="price">RD$ 1,950,000</div>
+        </div>
+      </div>
 
-<button class="back-category" onclick="showPage('categories')">
-← Volver
-</button>
+      <div class="moto-card">
+        <div class="moto-preview"><img src="assets/images/indian1.jpg"></div>
+        <div class="moto-info">
+          <div class="brand">INDIAN</div><div class="model">Chief Dark Horse</div>
+          <div class="specs"><div class="spec">1890cc</div><div class="spec">89HP</div><div class="spec">185km/h</div></div>
+          <div class="moto-desc">La marca americana más antigua con actitud oscura total. Motor Thunder Stroke y acabado negro mate absoluto e intimidante.</div>
+          <div class="price">RD$ 2,120,000</div>
+        </div>
+      </div>
 
-<div class="moto-page">
+      <div class="moto-card">
+        <div class="moto-preview"><img src="assets/images/bobber1.jpg"></div>
+        <div class="moto-info">
+          <div class="brand">TRIUMPH</div><div class="model">Bonneville Bobber</div>
+          <div class="specs"><div class="spec">1200cc</div><div class="spec">77HP</div><div class="spec">190km/h</div></div>
+          <div class="moto-desc">Estética bobber de los 50 reinventada con ingeniería moderna. Asiento monoplaza, suspensión oculta y carácter propio.</div>
+          <div class="price">RD$ 1,430,000</div>
+        </div>
+      </div>
 
-<div class="moto-card">
-<div class="moto-preview">
-<img src="assets/images/harley1.jpg">
-</div>
+      <div class="moto-card">
+        <div class="moto-preview"><img src="assets/images/rebel1100.jpg"></div>
+        <div class="moto-info">
+          <div class="brand">HONDA</div><div class="model">Rebel 1100</div>
+          <div class="specs"><div class="spec">1084cc</div><div class="spec">87HP</div><div class="spec">180km/h</div></div>
+          <div class="moto-desc">Custom moderno y accesible. Motor de la Africa Twin en un chasis bajo y minimalista que mezcla lo clásico con lo contemporáneo.</div>
+          <div class="price">RD$ 1,180,000</div>
+        </div>
+      </div>
 
-<div class="moto-info">
-<div class="brand">HARLEY-DAVIDSON</div>
-<div class="model">Fat Boy 114</div>
-
-<div class="specs">
-<div class="spec">1868cc</div>
-<div class="spec">94HP</div>
-<div class="spec">177km/h</div>
-</div>
-
-<div class="price">RD$ 1,950,000</div>
-</div>
-</div>
-
-<div class="moto-card">
-<div class="moto-preview">
-<img src="assets/images/indian1.jpg">
-</div>
-
-<div class="moto-info">
-<div class="brand">INDIAN</div>
-<div class="model">Chief Dark Horse</div>
-
-<div class="specs">
-<div class="spec">1890cc</div>
-<div class="spec">89HP</div>
-<div class="spec">185km/h</div>
-</div>
-
-<div class="price">RD$ 2,120,000</div>
-</div>
-</div>
-
-<div class="moto-card">
-<div class="moto-preview">
-<img src="assets/images/bobber1.jpg">
-</div>
-
-<div class="moto-info">
-<div class="brand">TRIUMPH</div>
-<div class="model">Bonneville Bobber</div>
-
-<div class="specs">
-<div class="spec">1200cc</div>
-<div class="spec">77HP</div>
-<div class="spec">190km/h</div>
-</div>
-
-<div class="price">RD$ 1,430,000</div>
-</div>
-</div>
-
-<div class="moto-card">
-<div class="moto-preview">
-<img src="assets/images/rebel1100.jpg">
-</div>
-
-<div class="moto-info">
-<div class="brand">HONDA</div>
-<div class="model">Rebel 1100</div>
-
-<div class="specs">
-<div class="spec">1084cc</div>
-<div class="spec">87HP</div>
-<div class="spec">180km/h</div>
-</div>
-
-<div class="price">RD$ 1,180,000</div>
-</div>
-</div>
-
-</div>
-</div>
+    </div>
+  </div>
 </section>
 
-<!-- ABOUT -->
+<!-- ══════════ ⑩ CONTACTO ══════════ -->
+<section class="page" id="contacto">
+  <div class="scroll-inner" style="display:flex;align-items:center;justify-content:center;">
+  <div class="contact-wrap">
 
+    <div class="contact-header">
+      <div class="section-label">Contacto</div>
+      <div class="section-title">ENCUÉNTRANOS<br>AQUÍ</div>
+    </div>
+
+    <div class="contact-profile">
+      <div class="contact-avatar">MV</div>
+      <div class="contact-profile-info">
+        <h3>MotoVerse Official</h3>
+        <p>Catálogo digital de motos de alta cilindrada · RD</p>
+        <div class="contact-profile-stats">
+          <div class="pstat"><div class="pstat-num">16</div><div class="pstat-lbl">Modelos</div></div>
+          <div class="pstat"><div class="pstat-num">4</div><div class="pstat-lbl">Categorías</div></div>
+          <div class="pstat"><div class="pstat-num">2</div><div class="pstat-lbl">Creadores</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-links">
+      <a class="contact-link" href="#" onclick="return false;">
+        <div class="contact-link-icon">📸</div>
+        <div class="contact-link-name">Instagram</div>
+        <div class="contact-link-handle">@motoverse.rd</div>
+      </a>
+      <a class="contact-link" href="#" onclick="return false;">
+        <div class="contact-link-icon">🐦</div>
+        <div class="contact-link-name">X / Twitter</div>
+        <div class="contact-link-handle">@motoverse_rd</div>
+      </a>
+      <a class="contact-link" href="#" onclick="return false;">
+        <div class="contact-link-icon">💬</div>
+        <div class="contact-link-name">WhatsApp</div>
+        <div class="contact-link-handle">+1 (809) 000-0000</div>
+      </a>
+    </div>
+
+    <div class="contact-info-row">
+      <div class="info-card">
+        <div class="info-card-label">Horario</div>
+        <div class="info-card-value">Lunes a Viernes<br>8:00 AM – 4:00 PM</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Ubicación</div>
+        <div class="info-card-value">Santiago de los Caballeros<br>República Dominicana</div>
+      </div>
+    </div>
+
+  </div>
+  </div>
+</section>
+
+<!-- ══════════ ⑪ SOBRE NOSOTROS ══════════ -->
 <section class="page" id="about">
+  <div class="scroll-inner" style="display:flex;align-items:center;justify-content:center;">
+  <div class="about-wrap">
 
-<div class="about">
+    <div class="about-main">
+      <h2>MotoVerse</h2>
+      <p>MotoVerse es un catálogo interactivo de motocicletas diseñado para ser moderno, dinámico y visualmente atractivo. Nació como un proyecto escolar de los estudiantes de 3ro C y busca demostrar que un catálogo puede ser tan emocionante como las máquinas que presenta.</p>
+    </div>
 
-<h2>MotoVerse</h2>
+    <div class="about-team">
+      <div class="team-card">
+        <div class="team-avatar">#20</div>
+        <div><div class="team-name">Estudiante #20</div></div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">#26</div>
+        <div><div class="team-name">Estudiante #26</div></div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">#29</div>
+        <div><div class="team-name">Estudiante #29</div></div>
+      </div>
+    </div>
 
-<p>
-MotoVerse es un catálogo interactivo de motocicletas diseñado para verse moderno, dinámico y visualmente atractivo.
-Creado por LOS ESTUDIANTES DE 3RO C, #20 y #29
-</p>
-
-</div>
-
+  </div>
+  </div>
 </section>
 
+<!-- ══════════════════════════════════════
+   ANIMATION ENGINE
+══════════════════════════════════════ -->
 <script>
+const DUR = 360;
 
-function showPage(id){
+function a(el, kf, ms, delay, fill){
+  if(!el) return;
+  el.style.animation = 'none';
+  el.offsetHeight;
+  el.style.animation = `${kf} ${ms}ms cubic-bezier(.16,1,.3,1) ${delay||0}ms ${fill||'forwards'}`;
+}
 
-document.querySelectorAll('.page').forEach(page=>{
-page.classList.remove('active');
+/* ── PORTADA ── */
+function portadaEnter(p){
+  a(p.querySelector('.portada-tag'),    'tagSwing',   900,  80);
+  a(p.querySelector('.portada-title'),  'titleCrash',1100, 170);
+  a(p.querySelector('.portada-subtitle'),'subtitleIn',1000, 300);
+  a(p.querySelector('.portada-badges'), 'badgesIn',   900, 420);
+  a(p.querySelector('.portada-btns'),   'btnsSpring',1100, 520);
+  a(p.querySelector('.portada-img'),    'imgUnfold', 1300, 120);
+}
+function portadaExit(p){
+  a(p.querySelector('.portada-tag'),    'tagOut',    DUR,   0,'forwards');
+  a(p.querySelector('.portada-title'),  'titleOut',  DUR,  50,'forwards');
+  a(p.querySelector('.portada-subtitle'),'subtitleOut',DUR,20,'forwards');
+  a(p.querySelector('.portada-badges'), 'badgesOut', DUR,  40,'forwards');
+  a(p.querySelector('.portada-btns'),   'btnsOut',   DUR,  70,'forwards');
+  a(p.querySelector('.portada-img'),    'imgOut',    DUR,   0,'forwards');
+}
+
+/* ── PRESENTACIÓN ── */
+function presEnter(p){
+  a(p.querySelector('.section-label'),  'labelIn',    800,  60);
+  a(p.querySelector('.section-title'),  'titleSlam',  950, 140);
+  p.querySelectorAll('.section-body').forEach((el,i)=>a(el,'bodyFade',800,260+i*120));
+  const sc = p.querySelectorAll('.stat-card');
+  const anims = ['statIn1','statIn2','statIn3','statIn4'];
+  sc.forEach((el,i)=>a(el,anims[i],900,420+i*70));
+  const pl = p.querySelectorAll('.pillar');
+  pl.forEach((el,i)=>a(el,`pillarIn${i+1}`,900,300+i*100));
+}
+function presExit(p){
+  a(p.querySelector('.section-label'), 'labelOut',   DUR,  0,'forwards');
+  a(p.querySelector('.section-title'), 'titleSlamOut',DUR,30,'forwards');
+  p.querySelectorAll('.section-body').forEach(el=>a(el,'bodyFadeOut',DUR,0,'forwards'));
+  p.querySelectorAll('.stat-card').forEach(el=>a(el,'statOut',DUR,0,'forwards'));
+  p.querySelectorAll('.pillar').forEach(el=>a(el,'pillarOut',DUR,0,'forwards'));
+}
+
+/* ── ÍNDICE ── */
+const indAnimsIn  = ['indItem1','indItem2','indItem3','indItem4','indItem5','indItem6','indItem7'];
+function indiceEnter(p){
+  a(p.querySelector('.indice-header'),'indHdrIn',900,0);
+  p.querySelectorAll('.indice-item').forEach((el,i)=>a(el,indAnimsIn[i],950,80+i*65));
+}
+function indiceExit(p){
+  a(p.querySelector('.indice-header'),'indHdrOut',DUR,0,'forwards');
+  p.querySelectorAll('.indice-item').forEach((el,i)=>a(el,'indItemOut',DUR,i*20,'forwards'));
+}
+
+/* ── OFERTA ── */
+const ofCats = ['ofCat1','ofCat2','ofCat3','ofCat4'];
+function ofertaEnter(p){
+  a(p.querySelector('.oferta-header'), 'ofHdrIn',   900,  0);
+  a(p.querySelector('.oferta-hero'),   'ofHeroIn', 1000, 120);
+  p.querySelectorAll('.oferta-cat').forEach((el,i)=>a(el,ofCats[i],950,250+i*70));
+}
+function ofertaExit(p){
+  a(p.querySelector('.oferta-header'),'ofHdrOut',  DUR,  0,'forwards');
+  a(p.querySelector('.oferta-hero'),  'ofHeroOut', DUR, 20,'forwards');
+  p.querySelectorAll('.oferta-cat').forEach(el=>a(el,'ofCatOut',DUR,0,'forwards'));
+}
+
+/* ── CATEGORIES ── */
+const CE=['catDrop1','catSpin2','catSlam3','catRise4'];
+const CX=['catExit1','catExit2','catExit3','catExit4'];
+function catEnter(p){ p.querySelectorAll('.category-card').forEach((c,i)=>a(c,CE[i],1000+i*40,i*75)); }
+function catExit(p) { p.querySelectorAll('.category-card').forEach((c,i)=>a(c,CX[i],DUR,i*22,'forwards')); }
+
+/* ── MOTO ── */
+const ME=['motoFlip1','motoScrewL','motoZap3','motoScrewR'];
+const MX=['motoExit1','motoExit2','motoExit3','motoExit4'];
+function motoEnter(p){
+  a(p.querySelector('.back-category'),'backIn',880,0);
+  p.querySelectorAll('.moto-card').forEach((card,i)=>{
+    const d=i*95;
+    a(card,ME[i],1000,d);
+    const sp=card.querySelectorAll('.spec');
+    a(card.querySelector('.brand'),    'brandIn',680,d+270);
+    a(card.querySelector('.model'),    'modelIn', 740,d+350);
+    a(sp[0],                           'specIn1', 620,d+430);
+    a(sp[1],                           'specIn2', 620,d+490);
+    a(sp[2],                           'specIn3', 620,d+550);
+    a(card.querySelector('.moto-desc'),'descIn',  680,d+610);
+    a(card.querySelector('.price'),    'priceIn', 680,d+690);
+  });
+}
+function motoExit(p){
+  a(p.querySelector('.back-category'),'backOut',DUR,0,'forwards');
+  p.querySelectorAll('.moto-card').forEach((card,i)=>{
+    const sp=card.querySelectorAll('.spec');
+    a(card,MX[i],DUR,i*18,'forwards');
+    a(card.querySelector('.brand'),    'brandOut',DUR,0,'forwards');
+    a(card.querySelector('.model'),    'modelOut',DUR,12,'forwards');
+    a(sp[0],                           'spec1Out',DUR,0,'forwards');
+    a(sp[1],                           'spec2Out',DUR,22,'forwards');
+    a(sp[2],                           'spec3Out',DUR,8,'forwards');
+    a(card.querySelector('.moto-desc'),'descOut', DUR,30,'forwards');
+    a(card.querySelector('.price'),    'priceOut',DUR,42,'forwards');
+  });
+}
+
+/* ── CONTACTO ── */
+function contactoEnter(p){
+  a(p.querySelector('.contact-header'), 'contactHdrIn',900,  0);
+  a(p.querySelector('.contact-profile'),'profileIn',  1000,140);
+  const links=p.querySelectorAll('.contact-link');
+  const la=['link1In','link2In','link3In'];
+  links.forEach((el,i)=>a(el,la[i],880,300+i*80));
+  const ic=p.querySelectorAll('.info-card');
+  a(ic[0],'infoCard1In',840,560);
+  a(ic[1],'infoCard2In',840,640);
+}
+function contactoExit(p){
+  a(p.querySelector('.contact-header'), 'contactHdrOut',DUR,0,'forwards');
+  a(p.querySelector('.contact-profile'),'profileOut',  DUR,0,'forwards');
+  p.querySelectorAll('.contact-link').forEach(el=>a(el,'linkOut',DUR,0,'forwards'));
+  p.querySelectorAll('.info-card').forEach(el=>a(el,'infoCardOut',DUR,0,'forwards'));
+}
+
+/* ── ABOUT ── */
+function aboutEnter(p){
+  a(p.querySelector('.about-main'),   'aboutMainIn',1100,  0);
+  a(p.querySelector('.about-main h2'),'aboutH2In',   900,200);
+  a(p.querySelector('.about-main p'), 'aboutPIn',    900,360);
+  const tc=p.querySelectorAll('.team-card');
+  a(tc[0],'team1In',880,500);
+  a(tc[1],'team2In',880,600);
+  if(tc[2]) a(tc[2],'team1In',880,700);
+}
+function aboutExit(p){
+  a(p.querySelector('.about-main'),   'aboutMainOut', DUR,0,'forwards');
+  a(p.querySelector('.about-main h2'),'aboutH2Out',   DUR,0,'forwards');
+  a(p.querySelector('.about-main p'), 'aboutPOut',    DUR,20,'forwards');
+  p.querySelectorAll('.team-card').forEach(el=>a(el,'teamOut',DUR,0,'forwards'));
+}
+
+/* ── DISPATCH ── */
+const ENTER={
+  portada:portadaEnter, presentacion:presEnter, indice:indiceEnter,
+  oferta:ofertaEnter, categories:catEnter,
+  sport:motoEnter, naked:motoEnter, adventure:motoEnter, custom:motoEnter,
+  contacto:contactoEnter, about:aboutEnter
+};
+const EXIT={
+  portada:portadaExit, presentacion:presExit, indice:indiceExit,
+  oferta:ofertaExit, categories:catExit,
+  sport:motoExit, naked:motoExit, adventure:motoExit, custom:motoExit,
+  contacto:contactoExit, about:aboutExit
+};
+
+/* nav highlight */
+const NAV_MAP={
+  portada:0, presentacion:1, indice:2, oferta:3,
+  categories:4, sport:4, naked:4, adventure:4, custom:4,
+  contacto:5, about:6
+};
+function updateNav(id){
+  document.querySelectorAll('.nav-btn').forEach((b,i)=>{
+    b.classList.toggle('active-nav', i===NAV_MAP[id]);
+  });
+}
+
+let current='portada', busy=false;
+
+function navigate(id){
+  if(id===current||busy) return;
+  busy=true;
+  const from=document.getElementById(current);
+  const to  =document.getElementById(id);
+  if(EXIT[current]) EXIT[current](from);
+  setTimeout(()=>{
+    from.classList.remove('active');
+    to.classList.add('active');
+    current=id;
+    updateNav(id);
+    if(ENTER[id]) ENTER[id](to);
+    setTimeout(()=>{ busy=false; },1500);
+  }, DUR+55);
+}
+
+/* boot */
+window.addEventListener('load',()=>{
+  portadaEnter(document.getElementById('portada'));
+  updateNav('portada');
 });
 
-setTimeout(()=>{
-document.getElementById(id).classList.add('active');
-},40);
-
-}
-
-function openCategory(category){
-showPage(category);
-}
-
+/* legacy */
+function showPage(id){ navigate(id); }
+function openCategory(id){ navigate(id); }
 </script>
-
 </body>
 </html>
